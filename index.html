@@ -8,11 +8,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <style>
 @media print {
+
+  @page {
+    size: A4 portrait;
+    margin: 8mm;   /* ✅ margin sebenar kertas */
+  }
+
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+
   body * {
     visibility: hidden !important;
   }
 
-  #report-content, #report-content * {
+  #report-content,
+  #report-content * {
     visibility: visible !important;
   }
 
@@ -20,12 +33,18 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 210mm;
-    min-height: 297mm;
-    padding: 20mm;
+    width: 194mm;          /* 210 - margin kiri kanan */
+    min-height: auto;
+    padding: 0 !important; /* buang padding web */
+    margin: 0 auto;
     background: white;
   }
+
+  .no-print {
+    display: none !important;
+  }
 }
+
 
     body { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
     html, body, #app { height: 100%; width: 100%; }
