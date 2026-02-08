@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="ms" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Penilaian SKPM PPD (268 Item)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+
+  #report-content, #report-content * {
+    visibility: visible !important;
+  }
+
+  #report-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    background: white;
+  }
+}
+
+    body { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    html, body, #app { height: 100%; width: 100%; }
+    #app { overflow-y: auto; }
+    .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); }
+    .card-modern { box-shadow: 0 8px 32px rgba(0,0,0,0.12); transition: all 0.3s ease; }
+    .card-modern:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+    .standard-card { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #dee2e6; transition: all 0.3s ease; }
+    .standard-card:hover { border-color: #3b82f6; box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1); }
+    .score-slider { appearance: none; width: 100%; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #ef4444 0%, #f97316 25%, #eab308 50%, #84cc16 75%, #22c55e 100%); outline: none; }
+    .score-slider::-webkit-slider-thumb { appearance: none; width: 24px; height: 24px; border-radius: 50%; background: white; border: 3px solid #3b82f6; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .score-slider::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: white; border: 3px solid #3b82f6; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .score-display { display: inline-block; padding: 0.5rem 1rem; border-radius: 0.75rem; font-weight: 700; font-size: 1.125rem; }
+    .score-1 { background: #fee2e2; color: #991b1b; }
+    .score-2 { background: #fef08a; color: #713f12; }
+    .score-3 { background: #bbf7d0; color: #065f46; }
+    .score-4 { background: #86efac; color: #15803d; }
+    .status-excellent { background: #d1fae5; color: #065f46; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; }
+    .status-good { background: #dbeafe; color: #0c2d6b; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; }
+    .status-fair { background: #fef3c7; color: #78350f; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; }
+    .status-poor { background: #fee2e2; color: #7f1d1d; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; }
+    .progress-bar { height: 10px; background: #e5e7eb; border-radius: 5px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #3b82f6 0%, #1e40af 100%); transition: width 0.3s ease; }
+    .table-modern th { background: #f3f4f6; font-weight: 700; color: #1f2937; border-bottom: 2px solid #e5e7eb; text-align: left; }
+    .table-modern td { border-bottom: 1px solid #f3f4f6; }
+    .table-modern tr:hover { background: #f9fafb; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-in { animation: slideIn 0.3s ease-out; }
+    .modal-overlay { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
+    .item-row { display: flex; align-items: center; gap: 1rem; padding: 0.75rem; background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; margin-bottom: 0.5rem; }
+    .item-label { flex: 1; font-size: 0.875rem; font-weight: 500; color: #374151; }
+    .item-score { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full gradient-bg">
+   <header class="bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4">
+     <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2 sm:gap-3 md:gap-4 min-w-0">
+       <div class="w-10 sm:w-12 md:w-14 h-10 sm:h-12 md:h-14 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+        <svg class="w-5 sm:w-6 md:w-7 h-5 sm:h-6 md:h-7 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+       </div>
+       <div class="min-w-0">
+        <h1 id="ppd-name" class="text-lg sm:text-xl md:text-2xl font-bold text-white truncate">Sistem Penilaian SKPM PPD</h1>
+        <p class="text-white/70 text-xs sm:text-sm truncate">268 Item Penilaian Komprehensif</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </header>
+   <main class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
+     <div class="bg-white card-modern rounded-xl p-4 sm:p-6">
+      <div class="flex items-start justify-between mb-3">
+       <div>
+        <p class="text-gray-600 text-xs sm:text-sm font-medium">Jumlah Penilaian</p>
+        <h3 id="total-assessments" class="text-2xl sm:text-4xl font-bold text-gray-900 mt-2">0</h3>
+       </div>
+       <div class="w-10 sm:w-12 h-10 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+        <svg class="w-5 sm:w-6 h-5 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        </svg>
+       </div>
+      </div>
+      <p class="text-gray-500 text-xs">Sekolah dinilai</p>
+     </div>
+     <div class="bg-white card-modern rounded-xl p-4 sm:p-6">
+      <div class="flex items-start justify-between mb-3">
+       <div>
+        <p class="text-gray-600 text-xs sm:text-sm font-medium">Purata Skor</p>
+        <h3 id="average-score" class="text-2xl sm:text-4xl font-bold text-gray-900 mt-2">0.00</h3>
+       </div>
+       <div class="w-10 sm:w-12 h-10 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+        <svg class="w-5 sm:w-6 h-5 sm:h-6 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        </svg>
+       </div>
+      </div>
+      <p class="text-gray-500 text-xs">Daripada 4.00</p>
+     </div>
+     <div class="bg-white card-modern rounded-xl p-4 sm:p-6">
+      <div class="flex items-start justify-between mb-3">
+       <div>
+        <p class="text-gray-600 text-xs sm:text-sm font-medium">Pencapaian Target</p>
+        <h3 id="target-achievement" class="text-2xl sm:text-4xl font-bold text-gray-900 mt-2">0%</h3>
+       </div>
+       <div class="w-10 sm:w-12 h-10 sm:h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
+        <svg class="w-5 sm:w-6 h-5 sm:h-6 text-amber-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m7 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+       </div>
+      </div>
+      <p class="text-gray-500 text-xs">Sekolah capai target</p>
+     </div>
+     <div class="bg-white card-modern rounded-xl p-4 sm:p-6">
+      <div class="flex items-start justify-between mb-3">
+       <div>
+        <p class="text-gray-600 text-xs sm:text-sm font-medium">Status Keseluruhan</p>
+        <h3 id="overall-status" class="text-xl sm:text-3xl font-bold text-gray-900 mt-2">-</h3>
+       </div>
+       <div class="w-10 sm:w-12 h-10 sm:h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+        <svg class="w-5 sm:w-6 h-5 sm:h-6 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m6 2a8 8 0 11-16 0 8 8 0 0116 0z" />
+        </svg>
+       </div>
+      </div>
+      <p class="text-gray-500 text-xs">Taraf kualiti keseluruhan</p>
+     </div>
+    </div>
+    <div class="bg-white card-modern rounded-xl overflow-hidden mb-6 sm:mb-8">
+     <div class="px-4 sm:px-6 py-3 sm:py-5 border-b border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <h2 class="text-base sm:text-lg font-bold text-gray-900">Rekod Penilaian</h2><button onclick="showAddModal()" class="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700 transition flex items-center justify-center gap-2">
+       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+       </svg> Penilaian Baru </button>
+     </div>
+     <div class="overflow-x-auto">
+     <table class="w-full text-sm table-modern table-fixed">
+
+       <thead>
+        <tr class="bg-gray-100 border-b-2 border-gray-300">
+         <th class="text-left font-bold text-gray-700 py-3 px-4 w-40">Nama Sekolah</th>
+         <th class="text-left font-bold text-gray-700 py-3 px-4 w-24 hidden sm:table-cell">Kod</th>
+        <th class="w-16 px-2 py-3 text-center">S1</th>
+<th class="w-16 px-2 py-3 text-center hidden md:table-cell">S2</th>
+<th class="w-16 px-2 py-3 text-center hidden lg:table-cell">S3</th>
+<th class="w-16 px-2 py-3 text-center">S4</th>
+<th class="w-20 px-2 py-3 text-center">Skor</th>
+
+         <th class="text-center font-bold text-gray-700 py-3 px-2 w-28 hidden sm:table-cell">Status</th>
+         <th class="text-center font-bold text-gray-700 py-3 px-2 w-24">Aksi</th>
+        </tr>
+       </thead>
+       <tbody id="assessments-table">
+        <tr>
+         <td colspan="9" class="text-center py-8 text-gray-500 text-sm">
+          <svg class="w-12 h-12 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg><p class="font-medium">Tiada rekod penilaian</p></td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+     <div class="bg-white card-modern rounded-xl p-4 sm:p-6">
+      <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-4 sm:mb-6">Purata Skor Mengikut Standard</h3>
+      <div class="space-y-4 sm:space-y-5" id="standard-averages"></div>
+     </div>
+     <div class="bg-white card-modern rounded-xl p-4 sm:p-6">
+      <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-4 sm:mb-6">Taburan Status Pencapaian</h3>
+      <div class="space-y-3 sm:space-y-4" id="status-distribution">
+       <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+        <div class="w-3 h-3 rounded-full bg-green-500 flex-shrink-0"></div><span class="text-gray-600">Cemerlang (≥3.5)</span> <span id="status-excellent-count" class="ml-auto font-bold text-gray-900">0</span>
+       </div>
+       <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+        <div class="w-3 h-3 rounded-full bg-blue-500 flex-shrink-0"></div><span class="text-gray-600">Baik (2.5-3.4)</span> <span id="status-good-count" class="ml-auto font-bold text-gray-900">0</span>
+       </div>
+       <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+        <div class="w-3 h-3 rounded-full bg-amber-500 flex-shrink-0"></div><span class="text-gray-600">Sederhana (1.5-2.4)</span> <span id="status-fair-count" class="ml-auto font-bold text-gray-900">0</span>
+       </div>
+       <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+        <div class="w-3 h-3 rounded-full bg-red-500 flex-shrink-0"></div><span class="text-gray-600">Lemah (&lt;1.5)</span> <span id="status-poor-count" class="ml-auto font-bold text-gray-900">0</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </main>
+   <div id="modal" class="fixed inset-0 modal-overlay hidden flex items-center justify-center p-3 sm:p-4 z-50">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto animate-in">
+     <div class="sticky top-0 bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+      <h2 id="modal-title" class="text-lg sm:text-xl font-bold text-gray-900">Penilaian SKPM Sekolah</h2><button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 p-1 hover:bg-gray-100 rounded transition flex-shrink-0">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+       </svg></button>
+     </div>
+     <form id="assessment-form" class="p-4 sm:p-6 space-y-5 sm:space-y-6">
+      <div class="border-b border-gray-200 pb-5 sm:pb-6">
+       <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Maklumat Sekolah</h3>
+       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+        <div><label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Nama Sekolah</label> <input type="text" id="form-school-name" required class="w-full px-3 sm:px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+        </div>
+        <div><label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Kod Sekolah</label> <input type="text" id="form-school-code" placeholder="Cth: BK001" class="w-full px-3 sm:px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+        </div>
+        <div><label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Tarikh Penilaian</label> <input type="date" id="form-date" required class="w-full px-3 sm:px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+        </div>
+        <div><label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Nama Penilai PPD</label> <input type="text" id="form-evaluator" required class="w-full px-3 sm:px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+        </div>
+       </div>
+      </div>
+      <div class="border-b border-gray-200 pb-5 sm:pb-6">
+       <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-4 sm:mb-5">Borang Penilaian SKPM (268 Item)</h3>
+       <div id="skpm-form-container" class="space-y-4 sm:space-y-5"></div>
+      </div>
+      <div class="bg-blue-50 rounded-lg p-4 sm:p-5 border border-blue-200 mb-5 sm:mb-6">
+       <div class="flex items-center justify-between flex-col sm:flex-row gap-2">
+        <div>
+         <p class="text-xs sm:text-sm text-blue-700 font-medium">Skor Keseluruhan (Purata 4 Standard)</p>
+         <p class="text-xs text-blue-600 mt-1">Dikira mengikut kaedah SKPM sebenar (Purata Aspek → Kod → Standard → Keseluruhan)</p>
+        </div><span id="overall-score-display" class="text-2xl sm:text-3xl font-bold text-blue-900 flex-shrink-0">2.0</span>
+       </div>
+      </div>
+      <div class="border-t border-gray-200 pt-5 sm:pt-6">
+       <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Catatan &amp; Tindakan Susulan</h3>
+       <div class="mb-4"><label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Catatan Umum Penilaian</label> <textarea id="form-notes" rows="3" placeholder="Masukkan catatan umum atau pemerhatian penting..." class="w-full px-3 sm:px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"></textarea>
+       </div>
+       <div><label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Tindakan Susulan</label> <textarea id="form-action" rows="2" placeholder="Tindakan atau rekomendasi untuk peningkatan..." class="w-full px-3 sm:px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"></textarea>
+       </div>
+      </div><input type="hidden" id="form-id">
+      <div class="flex gap-2 sm:gap-3 pt-4 border-t border-gray-200"><button type="button" onclick="closeModal()" class="flex-1 px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg text-gray-900 font-medium text-sm hover:bg-gray-50 transition"> Batal </button> <button type="submit" class="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-blue-600 text-white rounded-lg font-medium text-sm hover:bg-blue-700 transition"> Simpan </button>
+      </div>
+     </form>
+    </div>
+   </div>
+   <div id="toast" class="fixed bottom-6 right-6 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-lg hidden z-50"><span id="toast-message"></span>
+   </div>
+   <div id="report-modal" class="fixed inset-0 modal-overlay hidden flex items-center justify-center p-3 sm:p-4 z-50">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto animate-in">
+     <div class="sticky top-0 bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+      <h2 id="report-modal-title" class="text-lg sm:text-xl font-bold text-gray-900">Laporan Penilaian SKPM</h2><button onclick="closeReportModal()" class="text-gray-500 hover:text-gray-700 p-1 hover:bg-gray-100 rounded transition flex-shrink-0">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+       </svg></button>
+     </div>
+     <div id="report-content" class="p-4 sm:p-6 overflow-y-auto max-h-[calc(95vh-120px)] sm:max-h-[calc(90vh-120px)]"></div>
+    <div class="flex gap-2 sm:gap-3 p-4 sm:p-6 border-t border-gray-200">
+  <button onclick="printReport()" class="w-full px-3 sm:px-4 py-2 sm:py-3 bg-blue-600 text-white rounded-lg font-medium text-sm hover:bg-blue-700 transition">
+    🖨️ Cetak Laporan
+  </button>
+  <button onclick="closeReportModal()" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg text-gray-900 font-medium text-sm hover:bg-gray-50 transition">
+    Tutup
+  </button>
+</div>
+ class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg text-gray-900 font-medium text-sm hover:bg-gray-50 transition"> Tutup </button>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+const API_URL = "https://script.google.com/macros/s/AKfycbyKI72XW_ynGm_2gp7WMAEWO6NbG5ckI1fVVZymGrAKLnZJRUa4W5Gx3TGxDeALmuJ6xA/exec";
+const config = {
+  target_skor: 3.5
+};
+// ✅ WAJIB ADA — fungsi simpan ke Google Sheet
+async function saveToSheet(data) {
+  await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(data),
+  });
+}
+function printReport() {
+  window.print();
+}
+
+async function loadFromSheet() {
+  const res = await fetch(API_URL);
+  const json = await res.json();
+  const rows = json.data || json;
+
+  allRecords = rows.map(r => {
+    const clean = {};
+    Object.keys(r).forEach(k => {
+      clean[k.trim()] = r[k];
+    });
+
+    return {
+      ...clean,
+      __backendId: String(clean.__id ?? ""),
+      __id: String(clean.__id ?? ""),
+      skor_standard_1: parseFloat(clean.skor_standard_1) || 0,
+      skor_standard_2: parseFloat(clean.skor_standard_2) || 0,
+      skor_standard_3: parseFloat(clean.skor_standard_3) || 0,
+      skor_standard_4: parseFloat(clean.skor_standard_4) || 0,
+      skor_keseluruhan: parseFloat(clean.skor_keseluruhan) || 0,
+      item_scores: clean.item_scores || "{}"
+    };
+  });
+
+  updateDashboard(); // ✅ WAJIB di luar map
+}
+    // SKPM Items Data (268 items dengan Aspek)
+    const skpmItems = [
+      // Standard 1: Kepemimpinan (44 items)
+      { std: 1, kod: '1.1.1', aspek: 'a', label: '1.1.1(a) Membuat analisis SWOT / analisis lain yang bersesuaian' },
+      { std: 1, kod: '1.1.1', aspek: 'b', label: '1.1.1(b) Menentukan sasaran / Petunjuk Prestasi Utama' },
+      { std: 1, kod: '1.1.1', aspek: 'c', label: '1.1.1(c) Mendokumenkan hala tuju yang ditetapkan' },
+      { std: 1, kod: '1.1.1', aspek: 'd', label: '1.1.1(d) Menyebarluaskan hala tuju yang ditetapkan' },
+      { std: 1, kod: '1.1.2', aspek: 'a', label: '1.1.2(a) Menyediakan garis panduan/format perancangan strategik' },
+      { std: 1, kod: '1.1.2', aspek: 'b', label: '1.1.2(b) Merangka strategi pencapaian sasaran' },
+      { std: 1, kod: '1.1.2', aspek: 'c', label: '1.1.2(c) Memantau penyediaan perancangan strategik' },
+      { std: 1, kod: '1.1.2', aspek: 'd', label: '1.1.2(d) Menyiapkan dokumen perancangan strategik' },
+      { std: 1, kod: '1.1.3', aspek: 'a', label: '1.1.3(a) Melaksanakan pemantauan' },
+      { std: 1, kod: '1.1.3', aspek: 'b', label: '1.1.3(b) Menyediakan rumusan pemantauan' },
+      { std: 1, kod: '1.1.3', aspek: 'c', label: '1.1.3(c) Mengambil tindakan susulan' },
+      { std: 1, kod: '1.1.4', aspek: 'a', label: '1.1.4(a) Melaksanakan PdP' },
+      { std: 1, kod: '1.1.4', aspek: 'b', label: '1.1.4(b) Menyediakan Rancangan Pelajaran Harian(RPH)' },
+      { std: 1, kod: '1.1.4', aspek: 'c', label: '1.1.4(c) Melaksanakan peperiksaan/pentaksiran terhadap tahap penguasaan murid' },
+      { std: 1, kod: '1.1.4', aspek: 'd', label: '1.1.4(d) Menyemak hasil kerja murid' },
+      { std: 1, kod: '1.1.5', aspek: 'a', label: '1.1.5(a) Melaksanakan pencerapan PdP' },
+      { std: 1, kod: '1.1.5', aspek: 'b', label: '1.1.5(b) Memberi maklum balas & bimbingan' },
+      { std: 1, kod: '1.1.5', aspek: 'c', label: '1.1.5(c) Mengambil tindakan susulan' },
+      { std: 1, kod: '1.1.6', aspek: 'a', label: '1.1.6(a) Menganalisis pencapaian murid' },
+      { std: 1, kod: '1.1.6', aspek: 'b', label: '1.1.6(b) Menyediakan rumusan kemajuan dan pencapaian murid' },
+      { std: 1, kod: '1.1.6', aspek: 'c', label: '1.1.6(c) Mengadakan dialog prestasi' },
+      { std: 1, kod: '1.1.6', aspek: 'd', label: '1.1.6(d) Mengambil tindakan susulan' },
+      { std: 1, kod: '1.1.7', aspek: 'a', label: '1.1.7(a) Mengesan jangkaan masalah/isu' },
+      { std: 1, kod: '1.1.7', aspek: 'b', label: '1.1.7(b) Mengenal pasti punca masalah/isu' },
+      { std: 1, kod: '1.1.7', aspek: 'c', label: '1.1.7(c) Mengambil tindakan terhadap masalah/isu' },
+      { std: 1, kod: '1.1.7', aspek: 'd', label: '1.1.7(d) Menyelesaikan masalah/isu' },
+      { std: 1, kod: '1.1.7', aspek: 'e', label: '1.1.7(e) Mengambil langkah kawalan/tindakan pencegahan' },
+      { std: 1, kod: '1.2.1', aspek: 'a', label: '1.2.1(a) Memberi taklimat / bengkel / kursus / ceramah' },
+      { std: 1, kod: '1.2.1', aspek: 'b', label: '1.2.1(b) Memberi panduan / tunjuk ajar/tunjuk cara / nasihat/penerangan' },
+      { std: 1, kod: '1.2.1', aspek: 'c', label: '1.2.1(c) Memberi maklum balas berkaitan prestasi kerja' },
+      { std: 1, kod: '1.2.2', aspek: 'a', label: '1.2.2(a) Memberi panduan / tunjuk ajar/tunjuk cara/nasihat/ penerangan' },
+      { std: 1, kod: '1.2.2', aspek: 'b', label: '1.2.2(b) Memberi maklum balas berkaitan prestasi kerja' },
+      { std: 1, kod: '1.2.2', aspek: 'c', label: '1.2.2(c) Memberi pendedahan berkaitan tugas kepimpinan' },
+      { std: 1, kod: '1.3.1', aspek: 'a', label: '1.3.1(a) Melaksanakan tugas berkualiti' },
+      { std: 1, kod: '1.3.1', aspek: 'b', label: '1.3.1(b) Mempamerkan penampilan berwibawa' },
+      { std: 1, kod: '1.3.1', aspek: 'c', label: '1.3.1(c) Bertindak sebagai pakar rujuk' },
+      { std: 1, kod: '1.3.1', aspek: 'd', label: '1.3.1(d) Memperlihatkan komunikasi berkesan' },
+      { std: 1, kod: '1.3.2', aspek: 'a', label: '1.3.2(a) Menyediakan saluran komunikasi' },
+      { std: 1, kod: '1.3.2', aspek: 'b', label: '1.3.2(b) Mendengar pandangan pelbagai pihak' },
+      { std: 1, kod: '1.3.2', aspek: 'c', label: '1.3.2(c) Menerima pandangan/maklum balas yang berbeza' },
+      { std: 1, kod: '1.3.2', aspek: 'd', label: '1.3.2(d) Mengambil tindakan terhadap pandangan/maklum balas' },
+      { std: 1, kod: '1.3.3', aspek: 'a', label: '1.3.3(a) Memberi maklum balas positif berkaitan prestasi/kemajuan/pencapaian kerja' },
+      { std: 1, kod: '1.3.3', aspek: 'b', label: '1.3.3(b) Memberi penghargaan/pengiktirafan' },
+      { std: 1, kod: '1.3.3', aspek: 'c', label: '1.3.3(c) Menyediakan keperluan & kemudahan' },
+      { std: 1, kod: '1.3.3', aspek: 'd', label: '1.3.3(d) Melibatkan diri dalam aktiviti' },
+      // Standard 2: Pengurusan Organisasi (38 items)
+      { std: 2, kod: '2.1.1', aspek: 'a', label: '2.1.1(a) Mengagihkan tugas' },
+      { std: 2, kod: '2.1.1', aspek: 'b', label: '2.1.1(b) Menyediakan perincian tugas' },
+      { std: 2, kod: '2.1.1', aspek: 'c', label: '2.1.1(c) Menyebarluaskan perincian tugas' },
+      { std: 2, kod: '2.1.1', aspek: 'd', label: '2.1.1(d) Menilai prestasi kerja' },
+      { std: 2, kod: '2.1.1', aspek: 'e', label: '2.1.1(e) Melaksanakan urusan perkhidmatan(SPP/ePROPER)' },
+      { std: 2, kod: '2.1.2', aspek: 'a', label: '2.1.2(a) Merancang program pembangunan profesionalsme' },
+      { std: 2, kod: '2.1.2', aspek: 'b', label: '2.1.2(b) Melaksanakan program pembangunan profesionalsme' },
+      { std: 2, kod: '2.1.2', aspek: 'c', label: '2.1.2(c) Menilai keberkesanan Program' },
+      { std: 2, kod: '2.1.2', aspek: 'd', label: '2.1.2(d) Mengambil Tindakan susulan' },
+      { std: 2, kod: '2.2.1', aspek: 'a', label: '2.2.1(a) Menyediakan harta modal dan aset alih bernilai rendah' },
+      { std: 2, kod: '2.2.1', aspek: 'b', label: '2.2.1(b) Menggunakan harta modal,aset alih bernilai rendah dan infrastruktur' },
+      { std: 2, kod: '2.2.1', aspek: 'c', label: '2.2.1(c) Menyelenggara harta modal dan infrastruktur' },
+      { std: 2, kod: '2.2.1', aspek: 'd', label: '2.2.1(d) Mengambil Tindakan terhadap hasil pemeriksaan harta modal' },
+      { std: 2, kod: '2.2.1', aspek: 'e', label: '2.2.1(e) Merekod perolehan penggunaan dan penyelengaraan' },
+      { std: 2, kod: '2.3.1', aspek: 'a', label: '2.3.1(a) Menyediakan anggaran perbelanjaan' },
+      { std: 2, kod: '2.3.1', aspek: 'b', label: '2.3.1(b) Melaksanakan perbelanjaan' },
+      { std: 2, kod: '2.3.1', aspek: 'c', label: '2.3.1(c) Melaksanakan pemantauan perbelanjaan' },
+      { std: 2, kod: '2.3.1', aspek: 'd', label: '2.3.1(d) Mengambil tindakan susulan' },
+      { std: 2, kod: '2.4.1', aspek: 'a', label: '2.4.1(a) Menyediakan alat/bahan,bahan cetak/elektronik dan TMK' },
+      { std: 2, kod: '2.4.1', aspek: 'b', label: '2.4.1(b) Menyimpan dan menyusun atur alat/bahan' },
+      { std: 2, kod: '2.4.1', aspek: 'c', label: '2.4.1(c) Menggunakan alat/bahan,bahan cetak/elektronik dan TMK' },
+      { std: 2, kod: '2.4.1', aspek: 'd', label: '2.4.1(d) Melaksanakan penyeliaan penggunaan alat/bahan' },
+      { std: 2, kod: '2.5.1', aspek: 'a', label: '2.5.1(a) Membersihkan kawasan,bangunan dan kemudahan sekolah' },
+      { std: 2, kod: '2.5.1', aspek: 'b', label: '2.5.1(b) Menceriakan kawasan,bangunan dan kemudahan sekolah' },
+      { std: 2, kod: '2.5.1', aspek: 'c', label: '2.5.1(c) Memulihkan kawasan bangunan dan kemudahan sekolah' },
+      { std: 2, kod: '2.5.1', aspek: 'd', label: '2.5.1(d) Mewujudkan ciri-ciri keselamatan' },
+      { std: 2, kod: '2.5.2', aspek: 'a', label: '2.5.2(a) Menguatkuasakan ketetapan/peraturan sekolah' },
+      { std: 2, kod: '2.5.2', aspek: 'b', label: '2.5.2(b) Merancang program peningkatan keakraban' },
+      { std: 2, kod: '2.5.2', aspek: 'c', label: '2.5.2(c) Melaksanankan program peningkatan keakraban' },
+      { std: 2, kod: '2.6.1', aspek: 'a', label: '2.6.1(a) Menyebarkan maklumat tentang kepelbagaian masyarakat Malaysia' },
+      { std: 2, kod: '2.6.1', aspek: 'b', label: '2.6.1(b) Merancang program berteraskan perpaduan/silang budaya' },
+      { std: 2, kod: '2.6.1', aspek: 'c', label: '2.6.1(c) Melaksanakan program berteraskan perpaduan/silang budaya' },
+      { std: 2, kod: '2.6.1', aspek: 'd', label: '2.6.1(d) Merancang program jaringan/jalinan berteraskan perpaduan' },
+      { std: 2, kod: '2.6.1', aspek: 'e', label: '2.6.1(e) Melaksanakan program jaringan/jalinan berteraskan perpaduan' },
+      { std: 2, kod: '2.7.1', aspek: 'a', label: '2.7.1(a) Merancang program yang melibatkan ibu bapa/penjaga,komuniti' },
+      { std: 2, kod: '2.7.1', aspek: 'b', label: '2.7.1(b) Melaksanakan program yang melibatkan ibu bapa/penjaga' },
+      { std: 2, kod: '2.7.1', aspek: 'c', label: '2.7.1(c) Mendapatkan sumbangan sokongan/khidmat kepakaran' },
+      { std: 2, kod: '2.7.1', aspek: 'd', label: '2.7.1(d) Mewujudkan rangkaian komuniti' },
+      // Standard 3: Kurikulum, Kokurikulum & HEM (95 items - shortened for space)
+      { std: 3, kod: '3.1.1.1', aspek: 'a', label: '3.1.1.1(a) Membuat ketetapan' },
+      { std: 3, kod: '3.1.1.1', aspek: 'b', label: '3.1.1.1(b) Mendokumenkan ketetapan' },
+      { std: 3, kod: '3.1.1.1', aspek: 'c', label: '3.1.1.1(c) Menyebarluaskan ketetapan' },
+      { std: 3, kod: '3.1.1.1', aspek: 'd', label: '3.1.1.1(d) Menyemak semula ketetapan' },
+      { std: 3, kod: '3.1.2.1', aspek: 'a', label: '3.1.2.1(a) Memperoleh dokumen kurikulum' },
+      { std: 3, kod: '3.1.2.1', aspek: 'b', label: '3.1.2.1(b) Menyelaras penyediaan RPT dan RPH' },
+      { std: 3, kod: '3.1.2.1', aspek: 'c', label: '3.1.2.1(c) Menyelaras pentaksiran' },
+      { std: 3, kod: '3.1.2.1', aspek: 'd', label: '3.1.2.1(d) Menyelaras tugasan murid' },
+      { std: 3, kod: '3.1.2.1', aspek: 'e', label: '3.1.2.1(e) Menganalisis data dan maklumat pentaksiran' },
+      { std: 3, kod: '3.1.2.1', aspek: 'f', label: '3.1.2.1(f) Mengambil tindakan susulan' },
+      { std: 3, kod: '3.1.2.2', aspek: 'a', label: '3.1.2.2(a) Merancang program pembangunan profesionalisme' },
+      { std: 3, kod: '3.1.2.2', aspek: 'b', label: '3.1.2.2(b) Melaksanakan progam pembangunan profesionalisme' },
+      { std: 3, kod: '3.1.2.2', aspek: 'c', label: '3.1.2.2(c) Menilai keberkesanan program' },
+      { std: 3, kod: '3.1.2.2', aspek: 'd', label: '3.1.2.2(d) Mengambil tindakan susulan' },
+      { std: 3, kod: '3.1.2.3', aspek: 'a', label: '3.1.2.3(a) Merancang program peningkatan ilmu dan kemahiran' },
+      { std: 3, kod: '3.1.2.3', aspek: 'b', label: '3.1.2.3(b) Melaksanakan program peningkatan ilmu' },
+      { std: 3, kod: '3.1.2.3', aspek: 'c', label: '3.1.2.3(c) Menilai keberkesanan programn' },
+      { std: 3, kod: '3.1.2.3', aspek: 'd', label: '3.1.2.3(d) Mengambil tindakan susulan' },
+      { std: 3, kod: '3.1.2.4', aspek: 'a', label: '3.1.2.4(a) Merancang perbelanjaan' },
+      { std: 3, kod: '3.1.2.4', aspek: 'b', label: '3.1.2.4(b) Melaksanakan perbelanjaan' },
+      { std: 3, kod: '3.1.2.4', aspek: 'c', label: '3.1.2.4(c) Memanafaatkan sumber pendidikan' },
+      { std: 3, kod: '3.1.2.4', aspek: 'd', label: '3.1.2.4(d) Merekod penerimaan dan penggunaan sumber' },
+      { std: 3, kod: '3.1.3.1', aspek: 'a', label: '3.1.3.1(a) Menyediakan jadual waktu induk' },
+      { std: 3, kod: '3.1.3.1', aspek: 'b', label: '3.1.3.1(b) Melaksanakan pdp sperti yang dijadualkan' },
+      { std: 3, kod: '3.1.3.1', aspek: 'c', label: '3.1.3.1(c) Menyusun semula jadual waktu' },
+      { std: 3, kod: '3.1.3.1', aspek: 'd', label: '3.1.3.1(d) Menyelaras program sekolah' },
+      { std: 3, kod: '3.1.4.1', aspek: 'a', label: '3.1.4.1(a) Merancang peperiksaan dan pentaksiran' },
+      { std: 3, kod: '3.1.4.1', aspek: 'b', label: '3.1.4.1(b) Menyelaras peperiksaan dan pentaksiran' },
+      { std: 3, kod: '3.1.4.1', aspek: 'c', label: '3.1.4.1(c) Melaksanakan peperiksaan dan pentaksiran' },
+      { std: 3, kod: '3.1.4.1', aspek: 'd', label: '3.1.4.1(d) Menganalisis data peperiksaan dan pentaksiran' },
+      { std: 3, kod: '3.1.4.1', aspek: 'e', label: '3.1.4.1(e) Mengambil tindakan susulan/intervensi' },
+      { std: 3, kod: '3.2.1.1', aspek: 'a', label: '3.2.1.1(a) Membuat ketetapan' },
+      { std: 3, kod: '3.2.1.1', aspek: 'b', label: '3.2.1.1(b) Mendokumenkan ketetapan' },
+      { std: 3, kod: '3.2.1.1', aspek: 'c', label: '3.2.1.1(c) Menyebarluaskan ketetapan' },
+      { std: 3, kod: '3.2.1.1', aspek: 'd', label: '3.2.1.1(d) Menyemak semula ketetapan' },
+      { std: 3, kod: '3.2.2.1', aspek: 'a', label: '3.2.2.1(a) Merancang aktiviti beteraskan ilmu' },
+      { std: 3, kod: '3.2.2.1', aspek: 'b', label: '3.2.2.1(b) Melaksanakan aktiviti yang dirancang' },
+      { std: 3, kod: '3.2.2.1', aspek: 'c', label: '3.2.2.1(c) Merekodkan data dan maklumat' },
+      { std: 3, kod: '3.2.2.1', aspek: 'd', label: '3.2.2.1(d) Menganalisis data dan maklumat' },
+      { std: 3, kod: '3.2.2.1', aspek: 'e', label: '3.2.2.1(e) Mengambil tindakan susulan' },
+      { std: 3, kod: '3.2.3.1', aspek: 'a', label: '3.2.3.1(a) Merancang aktiviti kesukarelawanan' },
+      { std: 3, kod: '3.2.3.1', aspek: 'b', label: '3.2.3.1(b) Melaksanakan aktiviti kesukarelawanan' },
+      { std: 3, kod: '3.2.3.1', aspek: 'c', label: '3.2.3.1(c) Merekodkan data kesukarelawanan' },
+      { std: 3, kod: '3.2.3.1', aspek: 'd', label: '3.2.3.1(d) Menganalisis data kesukarelawanan' },
+      { std: 3, kod: '3.2.3.1', aspek: 'e', label: '3.2.3.1(e) Mengambil tindakan susulan' },
+      { std: 3, kod: '3.2.4.1', aspek: 'a', label: '3.2.4.1(a) Merancang aktiviti kebudayaan' },
+      { std: 3, kod: '3.2.4.1', aspek: 'b', label: '3.2.4.1(b) Melaksanakan aktiviti kebudayaan' },
+      { std: 3, kod: '3.2.4.1', aspek: 'c', label: '3.2.4.1(c) Merekodkan data kebudayaan' },
+      { std: 3, kod: '3.2.4.1', aspek: 'd', label: '3.2.4.1(d) Menganalisis data kebudayaan' },
+      { std: 3, kod: '3.2.4.1', aspek: 'e', label: '3.2.4.1(e) Mengambil tindakan susulan' },
+      { std: 3, kod: '3.2.5.1', aspek: 'a', label: '3.2.5.1(a) Merancang latihan kemahiran' },
+      { std: 3, kod: '3.2.5.1', aspek: 'b', label: '3.2.5.1(b) Melaksanakan latihan kemahiran' },
+      { std: 3, kod: '3.2.5.1', aspek: 'c', label: '3.2.5.1(c) Merancang program pemantapan' },
+      { std: 3, kod: '3.2.5.1', aspek: 'd', label: '3.2.5.1(d) Melaksanakan program pemantapan' },
+      { std: 3, kod: '3.2.6.1', aspek: 'a', label: '3.2.6.1(a) Merancang kejohanan merentas desa' },
+      { std: 3, kod: '3.2.6.1', aspek: 'b', label: '3.2.6.1(b) Merancang sukan tara' },
+      { std: 3, kod: '3.2.6.1', aspek: 'c', label: '3.2.6.1(c) Merancang kejohanan olahraga tahunan' },
+      { std: 3, kod: '3.2.6.1', aspek: 'd', label: '3.2.6.1(d) Merancang pertandingan antara tingkatan' },
+      { std: 3, kod: '3.2.6.1', aspek: 'e', label: '3.2.6.1(e) Melaksanakan kejohanan merentas desa' },
+      { std: 3, kod: '3.2.6.1', aspek: 'f', label: '3.2.6.1(f) Melasanakan sukan tara' },
+      { std: 3, kod: '3.2.6.1', aspek: 'g', label: '3.2.6.1(g) Melaksanakan kejohanan olahraga' },
+      { std: 3, kod: '3.2.6.1', aspek: 'h', label: '3.2.6.1(h) Melaksanakan pertandingan antara' },
+      { std: 3, kod: '3.2.7.1', aspek: 'a', label: '3.2.7.1(a) Merancang pentaksiran' },
+      { std: 3, kod: '3.2.7.1', aspek: 'b', label: '3.2.7.1(b) Melaksanakan pentaksiran' },
+      { std: 3, kod: '3.2.7.1', aspek: 'c', label: '3.2.7.1(c) Menganalisis data pentaksiran' },
+      { std: 3, kod: '3.2.7.1', aspek: 'd', label: '3.2.7.1(d) Mengambil tindakan susulan' },
+      { std: 3, kod: '3.3.1.1', aspek: 'a', label: '3.3.1.1(a) Membuat ketetapan' },
+      { std: 3, kod: '3.3.1.1', aspek: 'b', label: '3.3.1.1(b) Mendokumenkan ketetapan' },
+      { std: 3, kod: '3.3.1.1', aspek: 'c', label: '3.3.1.1(c) Menyebarluaskan ketetapan' },
+      { std: 3, kod: '3.3.1.1', aspek: 'd', label: '3.3.1.1(d) Menyemak semula ketetapan' },
+      { std: 3, kod: '3.3.2.1', aspek: 'a', label: '3.3.2.1(a) Menyebarluaskan peraturan sekolah' },
+      { std: 3, kod: '3.3.2.1', aspek: 'b', label: '3.3.2.1(b) Menguatkuasakan peraturan sekolah' },
+      { std: 3, kod: '3.3.2.1', aspek: 'c', label: '3.3.2.1(c) Menganalisis data displin' },
+      { std: 3, kod: '3.3.2.1', aspek: 'd', label: '3.3.2.1(d) Merancang program pendidikan displin' },
+      { std: 3, kod: '3.3.2.1', aspek: 'e', label: '3.3.2.1(e) Melaksanakan program pendidikan displin' },
+      { std: 3, kod: '3.3.3.1', aspek: 'a', label: '3.3.3.1(a) Menyebarluaskan prosedur keselamatan' },
+      { std: 3, kod: '3.3.3.1', aspek: 'b', label: '3.3.3.1(b) Menguatkuasakan prosedur keselamatan' },
+      { std: 3, kod: '3.3.3.1', aspek: 'c', label: '3.3.3.1(c) Merancang program kesedaran keselamatan' },
+      { std: 3, kod: '3.3.3.1', aspek: 'd', label: '3.3.3.1(d) Melaksanakan program kesedaran keselamatan' },
+      // Standard 4: Pembelajaran & Pemudahcaraan (38 items)
+      { std: 4, kod: '4.1.1', aspek: 'a', label: '4.1.1(a) Menyediakan RPH dengan objektif yang boleh diukur' },
+      { std: 4, kod: '4.1.1', aspek: 'b', label: '4.1.1(b) Menentukan kaedah pentaksiran' },
+      { std: 4, kod: '4.1.1', aspek: 'c', label: '4.1.1(c) Menyediakan ABM/BBM/BBB/TMK' },
+      { std: 4, kod: '4.2.1', aspek: 'a', label: '4.2.1(a) Mengelola isi pelajaran/skop pembelajaran' },
+      { std: 4, kod: '4.2.1', aspek: 'b', label: '4.2.1(b) Mengelola masa pdpc selaras dengan aktiviti' },
+      { std: 4, kod: '4.2.1', aspek: 'c', label: '4.2.1(c) Memberi peluang kepada penyertaan aktif murid' },
+      { std: 4, kod: '4.2.2', aspek: 'a', label: '4.2.2(a) Mengawasi komunikasi murid dalam pdpc' },
+      { std: 4, kod: '4.2.2', aspek: 'b', label: '4.2.2(b) Mengawasi perlakuan murid dalam pdpc' },
+      { std: 4, kod: '4.2.2', aspek: 'c', label: '4.2.2(c) Menyusun atur kedudukan murid' },
+      { std: 4, kod: '4.2.2', aspek: 'd', label: '4.2.2(d) Melaksanakan aktiviti pembelajaran yang menyeronokkan' },
+      { std: 4, kod: '4.3.1', aspek: 'a', label: '4.3.1(a) Memberi tunjuk ajar menguasai isi pelajaran' },
+      { std: 4, kod: '4.3.1', aspek: 'b', label: '4.3.1(b) Memberi tunjuk cara menguasai kemahiran' },
+      { std: 4, kod: '4.3.1', aspek: 'c', label: '4.3.1(c) Memandu murid membuat keputusan' },
+      { std: 4, kod: '4.3.1', aspek: 'd', label: '4.3.1(d) Memandu murid menggunakan sumber pendidikan' },
+      { std: 4, kod: '4.3.1', aspek: 'e', label: '4.3.1(e) Mengaitkan isi pelajaran dengan topik lain' },
+      { std: 4, kod: '4.4.1', aspek: 'a', label: '4.4.1(a) Meransang murid berkomunikasi' },
+      { std: 4, kod: '4.4.1', aspek: 'b', label: '4.4.1(b) Meransang murid berkolaboratif' },
+      { std: 4, kod: '4.4.1', aspek: 'c', label: '4.4.1(c) Mengemukakan soalan pemikiran kritis' },
+      { std: 4, kod: '4.4.1', aspek: 'd', label: '4.4.1(d) Mengajukan soalan membuat keputusan' },
+      { std: 4, kod: '4.4.1', aspek: 'e', label: '4.4.1(e) Mewujudkan peluang untuk murid memimpin' },
+      { std: 4, kod: '4.4.1', aspek: 'f', label: '4.4.1(f) Mengalakkan murid mengemukakan soalan' },
+      { std: 4, kod: '4.4.1', aspek: 'g', label: '4.4.1(g) Mengalakkan murid memperoleh pengetahuan' },
+      { std: 4, kod: '4.4.2', aspek: 'a', label: '4.4.2(a) Memberi pujian terhadap pelakuan positif' },
+      { std: 4, kod: '4.4.2', aspek: 'b', label: '4.4.2(b) Memberi penghargaan terhadap hasil kerja' },
+      { std: 4, kod: '4.4.2', aspek: 'c', label: '4.4.2(c) Memberi keyakinan mengemukakan soalan' },
+      { std: 4, kod: '4.4.2', aspek: 'd', label: '4.4.2(d) Prihatin terhadap keperluan murid' },
+      { std: 4, kod: '4.5.1', aspek: 'a', label: '4.5.1(a) Menggunakan pelbagai kaedah pentaksiran' },
+      { std: 4, kod: '4.5.1', aspek: 'b', label: '4.5.1(b) Menjalankan aktiviti pemulihan/pengayaan' },
+      { std: 4, kod: '4.5.1', aspek: 'c', label: '4.5.1(c) Memberi latihan/tugasan berkaitan pelajaran' },
+      { std: 4, kod: '4.5.1', aspek: 'd', label: '4.5.1(d) Membuat refleksi pdpc' },
+      { std: 4, kod: '4.5.1', aspek: 'e', label: '4.5.1(e) Menyemak/menilai hasil kerja/latihan' },
+      { std: 4, kod: '4.6.1', aspek: 'a', label: '4.6.1(a) Memberi respons berkaitan isi pelajaran' },
+      { std: 4, kod: '4.6.1', aspek: 'b', label: '4.6.1(b) Berkomunikasi dalam melaksanakan aktiviti' },
+      { std: 4, kod: '4.6.1', aspek: 'c', label: '4.6.1(c) Melaksanakan aktiviti pembelajaran kolaboratif' },
+      { std: 4, kod: '4.6.1', aspek: 'd', label: '4.6.1(d) Memberi respons pemikiran kritis/kreatif' },
+      { std: 4, kod: '4.6.1', aspek: 'e', label: '4.6.1(e) Mengemukakan soalan berkaitan isi pelajaran' },
+      { std: 4, kod: '4.6.1', aspek: 'f', label: '4.6.1(f) Mengaitkan isi dengan kehidupan murid' },
+      { std: 4, kod: '4.6.1', aspek: 'g', label: '4.6.1(g) Membuat keputusan menyelesaikan masalah' }
+    ];
+
+        let allRecords = [];
+    let currentEditId = null;
+    let currentItemScores = {};
+
+    
+   function initApp() {
+  loadFromSheet();
+  generateSKPMForm();
+  document.getElementById('assessment-form').addEventListener('submit', handleFormSubmit);
+  document.getElementById('form-date').valueAsDate = new Date();
+}
+
+    // ✅ KAEDAH SKPM SEBENAR: Purata Aspek → Kod → Standard → Keseluruhan
+    function calculateSKPMScores() {
+      // Step 1: Purata setiap ASPEK (setiap item sebelumnya = 1 aspek)
+      const itemAverages = {};
+      skpmItems.forEach(item => {
+        const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
+        const score = currentItemScores[fieldId] !== undefined ? currentItemScores[fieldId] : 2;
+        itemAverages[fieldId] = score;
+      });
+
+      // Step 2: Purata setiap KOD dari semua aspek dalam kod tersebut
+      const kodAverages = {};
+      skpmItems.forEach(item => {
+        const kodKey = `${item.std}_${item.kod}`;
+        if (!kodAverages[kodKey]) kodAverages[kodKey] = [];
+        
+        const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
+        const score = currentItemScores[fieldId] !== undefined ? currentItemScores[fieldId] : 2;
+        kodAverages[kodKey].push(score);
+      });
+
+      // Hitung purata setiap kod
+      const kodAveragesCalculated = {};
+      Object.keys(kodAverages).forEach(kodKey => {
+        const scores = kodAverages[kodKey];
+        kodAveragesCalculated[kodKey] = scores.reduce((a, b) => a + b, 0) / scores.length;
+      });
+
+      // Step 3: Purata setiap STANDARD dari purata kod
+      const standardAverages = [0, 0, 0, 0, 0];
+      
+      for (let std = 1; std <= 4; std++) {
+        const kodsForStandard = Object.keys(kodAveragesCalculated).filter(kodKey => kodKey.startsWith(std + '_'));
+        const kodScores = kodsForStandard.map(kodKey => kodAveragesCalculated[kodKey]);
+        standardAverages[std] = kodScores.length > 0 ? kodScores.reduce((a, b) => a + b, 0) / kodScores.length : 0;
+      }
+
+      // Step 4: Purata KESELURUHAN dari 4 standard
+      const overallScore = (standardAverages[1] + standardAverages[2] + standardAverages[3] + standardAverages[4]) / 4;
+
+      return {
+        standard1: standardAverages[1],
+        standard2: standardAverages[2],
+        standard3: standardAverages[3],
+        standard4: standardAverages[4],
+        overall: overallScore
+      };
+    }
+
+    function updateOverallScore() {
+      const scores = calculateSKPMScores();
+      document.getElementById('overall-score-display').textContent = scores.overall.toFixed(2);
+    }
+
+    function updateDashboard() {
+      const total = allRecords.length;
+      document.getElementById('total-assessments').textContent = total;
+
+      if (total === 0) {
+        document.getElementById('average-score').textContent = '0.00';
+        document.getElementById('overall-status').textContent = '-';
+        document.getElementById('target-achievement').textContent = '0%';
+        renderTable();
+        updateStandardAverages();
+        updateStatusDistribution();
+        return;
+      }
+
+      const avgScore = allRecords.reduce((sum, r) => sum + (r.skor_keseluruhan || 0), 0) / total;
+      const targetSkor = parseFloat(config.target_skor) || 3.5;
+      const achieveTarget = allRecords.filter(r => (r.skor_keseluruhan || 0) >= targetSkor).length;
+      const achievePercent = Math.round((achieveTarget / total) * 100);
+
+      document.getElementById('average-score').textContent = avgScore.toFixed(2);
+      document.getElementById('overall-status').textContent = getStatus(avgScore);
+      document.getElementById('target-achievement').textContent = achievePercent + '%';
+
+      renderTable();
+      updateStandardAverages();
+      updateStatusDistribution();
+    }
+
+    function getStatus(score) {
+      if (score >= 3.5) return 'Cemerlang';
+      if (score >= 2.5) return 'Baik';
+      if (score >= 1.5) return 'Sederhana';
+      return 'Lemah';
+    }
+
+    function getStatusBadge(score) {
+      if (score >= 3.5) return 'status-excellent';
+      if (score >= 2.5) return 'status-good';
+      if (score >= 1.5) return 'status-fair';
+      return 'status-poor';
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('assessments-table');
+      
+      if (allRecords.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center py-8 text-gray-500 text-sm"><svg class="w-12 h-12 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><p class="font-medium">Tiada rekod penilaian</p></td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = allRecords.map(record => {
+        const badgeClass = getStatusBadge(record.skor_keseluruhan);
+        return `<tr class="border-b border-gray-200 hover:bg-gray-50">
+          <td class="text-gray-900 py-3 px-4 w-40">${record.school_name}</td>
+          <td class="text-gray-600 py-3 px-4 w-24 hidden sm:table-cell text-xs">${record.school_code || '-'}</td>
+          <td class="text-center font-bold text-gray-900 py-3 px-2 w-16">${record.skor_standard_1.toFixed(1)}</td>
+          <td class="text-center font-bold text-gray-900 py-3 px-2 w-16 hidden md:table-cell">${record.skor_standard_2.toFixed(1)}</td>
+          <td class="text-center font-bold text-gray-900 py-3 px-2 w-16 hidden lg:table-cell">${record.skor_standard_3.toFixed(1)}</td>
+          <td class="text-center font-bold text-gray-900 py-3 px-2 w-16">${record.skor_standard_4.toFixed(1)}</td>
+          <td class="text-center font-bold text-blue-600 py-3 px-2 w-20">${record.skor_keseluruhan.toFixed(2)}</td>
+          <td class="text-center py-3 px-2 w-28 hidden sm:table-cell"><span class="${badgeClass} text-xs">${getStatus(record.skor_keseluruhan)}</span></td>
+          <td class="text-center py-3 px-2 w-24">
+            <div class="flex gap-1 justify-center flex-wrap">
+              <button onclick="viewSummary('${record.__backendId}')" class="text-green-600 hover:text-green-700 font-medium text-xs px-2 py-1 hover:bg-green-50 rounded">Rumusan</button>
+              <button onclick="editRecord('${record.__backendId}')" class="text-blue-600 hover:text-blue-700 font-medium text-xs px-2 py-1 hover:bg-blue-50 rounded">Edit</button>
+              <button onclick="deleteRecord('${record.__backendId}')" class="text-red-600 hover:text-red-700 font-medium text-xs px-2 py-1 hover:bg-red-50 rounded">Del</button>
+            </div>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    function updateStandardAverages() {
+      const container = document.getElementById('standard-averages');
+      const stdNames = ['Standard 1: Kepemimpinan', 'Standard 2: Pengurusan Organisasi', 'Standard 3: Kurikulum, Kokurikulum & HEM', 'Standard 4: Pembelajaran & Pemudahcaraan'];
+      let html = '';
+      for (let i = 1; i <= 4; i++) {
+        const fieldName = `skor_standard_${i}`;
+        const stdRecords = allRecords.filter(r => Number.isFinite(r[fieldName]));
+        const avgScore = stdRecords.length > 0 ? stdRecords.reduce((sum, r) => sum + (r[fieldName] || 0), 0) / stdRecords.length : 0;
+        const percent = (avgScore / 4) * 100;
+        html += `<div><div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-900">${stdNames[i-1]}</span><span class="text-sm font-bold text-gray-900">${avgScore.toFixed(2)}</span></div><div class="progress-bar"><div class="progress-fill" style="width: ${percent}%"></div></div></div>`;
+      }
+      container.innerHTML = html;
+
+    }
+
+    function updateStatusDistribution() {
+      const excellent = allRecords.filter(r => r.skor_keseluruhan >= 3.5).length;
+      const good = allRecords.filter(r => r.skor_keseluruhan >= 2.5 && r.skor_keseluruhan < 3.5).length;
+      const fair = allRecords.filter(r => r.skor_keseluruhan >= 1.5 && r.skor_keseluruhan < 2.5).length;
+      const poor = allRecords.filter(r => r.skor_keseluruhan < 1.5).length;
+      document.getElementById('status-excellent-count').textContent = excellent;
+      document.getElementById('status-good-count').textContent = good;
+      document.getElementById('status-fair-count').textContent = fair;
+      document.getElementById('status-poor-count').textContent = poor;
+    }
+
+    function generateSKPMForm() {
+      const container = document.getElementById('skpm-form-container');
+      let html = '';
+      let currentStandard = 0;
+
+      skpmItems.forEach((item, index) => {
+        if (item.std !== currentStandard) {
+          if (currentStandard > 0) html += '</div></div>';
+          currentStandard = item.std;
+          const stdNames = ['', 'Kepemimpinan', 'Pengurusan Organisasi', 'Kurikulum, Kokurikulum & HEM', 'Pembelajaran & Pemudahcaraan'];
+          html += `<div class="standard-card rounded-lg p-4 sm:p-5">
+            <h4 class="font-bold text-gray-900 text-sm sm:text-base mb-4">Standard ${item.std}: ${stdNames[item.std]}</h4>
+            <div class="space-y-3">`;
+        }
+
+        const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
+        html += `<div class="item-row">
+          <label for="${fieldId}" class="item-label">${item.label}</label>
+          <div class="item-score">
+            <input type="range" id="${fieldId}" min="1" max="4" value="2" class="score-slider w-20 sm:w-24" oninput="updateScoreDisplay('${fieldId}')">
+            <span id="score-${fieldId}" class="score-display score-2 text-xs px-2 py-1 whitespace-nowrap">2</span>
+          </div>
+        </div>`;
+      });
+
+      html += '</div></div>';
+      container.innerHTML = html;
+// ✅ Init memory skor hanya sekali bila form dibina
+skpmItems.forEach(item => {
+  const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
+  currentItemScores[fieldId] = 2;
+});
+
+    }
+
+    function updateScoreDisplay(fieldId) {
+      const input = document.getElementById(fieldId);
+      const score = parseInt(input.value);
+      const display = document.getElementById(`score-${fieldId}`);
+      
+      display.textContent = score;
+      display.className = 'score-display text-xs px-2 py-1 whitespace-nowrap score-' + score;
+      
+      // ✅ SIMPAN SKOR KE MEMORY
+      currentItemScores[fieldId] = score;
+
+      updateOverallScore();
+    }
+
+    function showAddModal() {
+      currentEditId = null;
+      // 🔥 Jangan kosongkan memory, bina semula 268 item
+currentItemScores = {};
+skpmItems.forEach(item => {
+  const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g,'_');
+  currentItemScores[fieldId] = 2;
+});
+
+      document.getElementById('modal-title').textContent = 'Penilaian SKPM Sekolah Baru';
+      document.getElementById('form-id').value = '';
+      document.getElementById('modal').classList.remove('hidden');
+      
+      document.getElementById('form-school-name').value = '';
+      document.getElementById('form-school-code').value = '';
+      document.getElementById('form-evaluator').value = '';
+      document.getElementById('form-notes').value = '';
+      document.getElementById('form-action').value = '';
+      document.getElementById('form-date').valueAsDate = new Date();
+      
+      // ✅ INISIALISASI SLIDER DAN SIMPAN SKOR KE MEMORY
+      skpmItems.forEach(item => {
+        const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
+        const input = document.getElementById(fieldId);
+        if (input) {
+          input.value = '2';
+          currentItemScores[fieldId] = 2;
+          const display = document.getElementById(`score-${fieldId}`);
+          if (display) {
+            display.textContent = '2';
+            display.className = 'score-display score-2 text-xs px-2 py-1 whitespace-nowrap';
+          }
+        }
+      });
+      updateOverallScore();
+    }
+
+    function editRecord(backendId) {
+      const record = allRecords.find(r => r.__backendId === backendId);
+      if (!record) return;
+
+      currentEditId = backendId;
+      currentItemScores = {};
+      document.getElementById('modal-title').textContent = 'Edit Penilaian SKPM';
+      document.getElementById('form-id').value = backendId;
+      document.getElementById('form-school-name').value = record.school_name || '';
+      document.getElementById('form-school-code').value = record.school_code || '';
+      document.getElementById('form-date').value = record.tarikh_penilaian?.split('T')[0] || '';
+      document.getElementById('form-evaluator').value = record.penilai_ppd || '';
+      document.getElementById('form-notes').value = record.catatan_umum || '';
+      document.getElementById('form-action').value = record.tindakan_susulan || '';
+
+     let oldScores = {};
+try {
+  oldScores = record.item_scores ? JSON.parse(record.item_scores) : {};
+} catch (e) {
+  oldScores = {};
+}
+
+const fullItemScores = {};
+skpmItems.forEach(item => {
+  const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g,'_');
+  fullItemScores[fieldId] = oldScores[fieldId] ?? 2;
+});
+
+currentItemScores = fullItemScores;
+
+
+      skpmItems.forEach(item => {
+        const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
+        const input = document.getElementById(fieldId);
+        const score = currentItemScores[fieldId] || 2;
+        if (input) {
+          input.value = score;
+          const display = document.getElementById(`score-${fieldId}`);
+          if (display) {
+            display.textContent = score;
+            display.className = 'score-display text-xs px-2 py-1 whitespace-nowrap score-' + score;
+          }
+        }
+      });
+
+      const overallScore = record.skor_keseluruhan || 2;
+      document.getElementById('overall-score-display').textContent = overallScore.toFixed(2);
+
+      document.getElementById('modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.add('hidden');
+      currentEditId = null;
+      currentItemScores = {};
+    }
+
+   async function handleFormSubmit(e) {
+  e.preventDefault();
+
+  const schoolName = document.getElementById('form-school-name').value.trim();
+  const evaluator = document.getElementById('form-evaluator').value.trim();
+  const dateValue = document.getElementById('form-date').value;
+
+  if (!schoolName || !evaluator || !dateValue) {
+    showToast('Sila isi semua medan yang diperlukan.');
+    return;
+  }
+
+  if (allRecords.length >= 999 && !currentEditId) {
+    showToast('Had maksimum 999 rekod telah dicapai.');
+    return;
+  }
+
+  try {
+    // 🔥 WAJIB bina semua 268 skor
+    const fullItemScores = {};
+    skpmItems.forEach(item => {
+      const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g,'_');
+      fullItemScores[fieldId] = currentItemScores[fieldId] ?? 2;
+    });
+
+    currentItemScores = fullItemScores;
+
+    const scores = calculateSKPMScores();
+
+   const data = {
+  __id: currentEditId || "",
+  school_name: schoolName,
+  school_code: document.getElementById('form-school-code').value.trim() || 'N/A',
+  tarikh_penilaian: new Date(dateValue).toISOString(),
+  penilai_ppd: evaluator,
+  skor_standard_1: +scores.standard1.toFixed(2),
+  skor_standard_2: +scores.standard2.toFixed(2),
+  skor_standard_3: +scores.standard3.toFixed(2),
+  skor_standard_4: +scores.standard4.toFixed(2),
+  skor_keseluruhan: +scores.overall.toFixed(2),
+  status: getStatus(scores.overall),
+  catatan_umum: document.getElementById('form-notes').value.trim() || 'Tiada',
+  tindakan_susulan: document.getElementById('form-action').value.trim() || 'Tiada',
+  item_scores: JSON.stringify(fullItemScores)
+};
+
+
+    await saveToSheet(data);
+
+    showToast(currentEditId ? 'Penilaian dikemaskini!' : 'Penilaian ditambah!');
+    closeModal();
+    await loadFromSheet();
+
+  } catch (err) {
+    console.error(err);
+    showToast('Ralat semasa menyimpan data.');
+  }
+}
+
+   async function deleteRecord(backendId) {
+  if (!confirm('Padam rekod penilaian ini?')) return;
+
+  await saveToSheet({
+    __delete: true,
+    __id: backendId
+  });
+
+  showToast('Penilaian dipadam.');
+  loadFromSheet();
+}
+
+    function closeReportModal() {
+      document.getElementById('report-modal').classList.add('hidden');
+    }
+
+    function viewSummary(backendId) {
+      const record = allRecords.find(r => r.__backendId === backendId);
+      if (!record) return;
+
+      const statusBadge = getStatusBadge(record.skor_keseluruhan);
+      const status = getStatus(record.skor_keseluruhan);
+      const targetSkor = parseFloat(config.target_skor) || 3.5;
+      const achieveTarget = record.skor_keseluruhan >= targetSkor;
+      const tarikh = new Date(record.tarikh_penilaian).toLocaleDateString('ms-MY', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      const summaryHtml = `
+        <div class="space-y-6 sm:space-y-8">
+          <div class="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-4 sm:p-6 border border-blue-100">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              <div>
+                <p class="text-xs text-gray-600 uppercase tracking-wide font-semibold">Nama Sekolah</p>
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mt-1">${record.school_name}</h2>
+                <p class="text-sm text-gray-600 mt-2">Kod: <span class="font-semibold">${record.school_code || '-'}</span></p>
+              </div>
+              <div>
+                <p class="text-xs text-gray-600 uppercase tracking-wide font-semibold">Maklumat Penilaian</p>
+                <p class="text-sm text-gray-900 mt-1">Tarikh: <span class="font-semibold">${tarikh}</span></p>
+                <p class="text-sm text-gray-900 mt-2">Penilai: <span class="font-semibold">${record.penilai_ppd || '-'}</span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border-2 border-gray-200 rounded-lg p-4 sm:p-6">
+            <p class="text-xs text-gray-600 uppercase tracking-wide font-semibold mb-4">Skor Keseluruhan</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div class="flex items-center justify-center">
+                <div class="text-center">
+                  <div class="text-5xl sm:text-6xl font-bold text-blue-600">${record.skor_keseluruhan.toFixed(2)}</div>
+                  <p class="text-gray-600 text-sm mt-2">daripada 4.00</p>
+                </div>
+              </div>
+              <div class="flex flex-col justify-center">
+                <p class="text-sm text-gray-600 mb-2">Status Pencapaian</p>
+                <div class="${statusBadge}" style="text-align: center; font-size: 1.125rem;">${status}</div>
+                <div class="mt-4 p-3 bg-gray-50 rounded">
+                  <p class="text-xs text-gray-600">Target Minimum:</p>
+                  <p class="text-lg font-bold text-gray-900">${targetSkor}</p>
+                  <p class="text-xs text-gray-600 mt-2">${achieveTarget ? '✓ Mencapai target' : '✗ Tidak mencapai target'}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border-2 border-gray-200 rounded-lg p-4 sm:p-6">
+            <p class="text-xs text-gray-600 uppercase tracking-wide font-semibold mb-5">Pencapaian Mengikut Standard</p>
+            <div class="space-y-5">
+              <div><div class="flex items-center justify-between mb-2"><span class="text-sm font-semibold text-gray-900">Standard 1: Kepemimpinan</span><span class="text-lg font-bold text-gray-900">${record.skor_standard_1.toFixed(2)}</span></div><div class="progress-bar"><div class="progress-fill" style="width: ${(record.skor_standard_1 / 4) * 100}%"></div></div></div>
+              <div><div class="flex items-center justify-between mb-2"><span class="text-sm font-semibold text-gray-900">Standard 2: Pengurusan Organisasi</span><span class="text-lg font-bold text-gray-900">${record.skor_standard_2.toFixed(2)}</span></div><div class="progress-bar"><div class="progress-fill" style="width: ${(record.skor_standard_2 / 4) * 100}%"></div></div></div>
+              <div><div class="flex items-center justify-between mb-2"><span class="text-sm font-semibold text-gray-900">Standard 3: Kurikulum, Kokurikulum & HEM</span><span class="text-lg font-bold text-gray-900">${record.skor_standard_3.toFixed(2)}</span></div><div class="progress-bar"><div class="progress-fill" style="width: ${(record.skor_standard_3 / 4) * 100}%"></div></div></div>
+              <div><div class="flex items-center justify-between mb-2"><span class="text-sm font-semibold text-gray-900">Standard 4: Pembelajaran & Pemudahcaraan</span><span class="text-lg font-bold text-gray-900">${record.skor_standard_4.toFixed(2)}</span></div><div class="progress-bar"><div class="progress-fill" style="width: ${(record.skor_standard_4 / 4) * 100}%"></div></div></div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+            <div class="bg-white border-2 border-gray-200 rounded-lg p-4 sm:p-6">
+              <p class="text-xs text-gray-600 uppercase tracking-wide font-semibold mb-3">Catatan Umum</p>
+              <p class="text-gray-900 text-sm leading-relaxed whitespace-pre-wrap">${record.catatan_umum || 'Tiada catatan.'}</p>
+            </div>
+            <div class="bg-white border-2 border-gray-200 rounded-lg p-4 sm:p-6">
+              <p class="text-xs text-gray-600 uppercase tracking-wide font-semibold mb-3">Tindakan Susulan</p>
+              <p class="text-gray-900 text-sm leading-relaxed whitespace-pre-wrap">${record.tindakan_susulan || 'Tiada tindakan yang ditetapkan.'}</p>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('report-content').innerHTML = summaryHtml;
+      document.getElementById('report-modal-title').textContent = `Rumusan Pemantauan - ${record.school_name}`;
+      document.getElementById('report-modal').classList.remove('hidden');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-message').textContent = message;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+
+    window.addEventListener('load', initApp);
+
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c9fef110661d04c',t:'MTc3MDQzNjMzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
