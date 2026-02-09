@@ -234,7 +234,16 @@
       </div>
       <div class="border-b border-gray-200 pb-5 sm:pb-6">
        <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-4 sm:mb-5">Borang Penilaian SKPM (268 Item)</h3>
-       <div id="skpm-form-container" class="space-y-4 sm:space-y-5"></div>
+       <!-- TAB STANDARD DALAM MODAL -->
+<div class="flex gap-2 mb-4">
+  <button type="button" onclick="renderStandard(1)" class="tab-btn">Standard 1</button>
+  <button type="button" onclick="renderStandard(2)" class="tab-btn">Standard 2</button>
+  <button type="button" onclick="renderStandard(3)" class="tab-btn">Standard 3</button>
+  <button type="button" onclick="renderStandard(4)" class="tab-btn">Standard 4</button>
+</div>
+
+<div id="standardContainer"></div>
+
       </div>
       <div class="bg-blue-50 rounded-lg p-4 sm:p-5 border border-blue-200 mb-5 sm:mb-6">
        <div class="flex items-center justify-between flex-col sm:flex-row gap-2">
@@ -531,6 +540,70 @@ async function loadFromSheet() {
       { std: 4, kod: '4.6.1', aspek: 'f', label: '4.6.1(f) Mengaitkan isi dengan kehidupan murid' },
       { std: 4, kod: '4.6.1', aspek: 'g', label: '4.6.1(g) Membuat keputusan menyelesaikan masalah' }
     ];
+// ===== LAZY RENDER ENGINE =====
+const scoreStore = {};
+
+function renderStandard(stdNumber){
+  const container = document.getElementById('standardContainer');
+  container.innerHTML = '';
+
+  const items = skpmItems.filter(i => i.std === stdNumber);
+
+  items.forEach(item => {
+    const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g,'_');
+    const val = scoreStore[fieldId] ?? 1;
+
+    container.innerHTML += `
+      <div class="mb-3 p-3 border rounded bg-white shadow-sm">
+        <div class="font-semibold">${item.kod} (${item.aspek})</div>
+        <div class="text-sm mb-2">${item.label}</div>
+
+        <div class="flex gap-2">
+          ${[1,2,3,4].map(n => `
+            <button
+              type="button"
+              onclick="setScore('${fieldId}', ${n})"
+              id="btn-${fieldId}-${n}"
+              class="score-btn px-3 py-1 rounded text-sm font-bold border
+              ${getScoreColor(val == n ? n : 0)}">
+              ${n}
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  });
+}
+
+// 🎨 WARNA BUTANG
+function getScoreColor(score){
+  switch(score){
+    case 1: return 'bg-red-500 text-white border-red-600';
+    case 2: return 'bg-yellow-400 text-white border-yellow-500';
+    case 3: return 'bg-green-400 text-white border-green-500';
+    case 4: return 'bg-green-700 text-white border-green-800';
+    default: return 'bg-white text-gray-700 border-gray-300';
+  }
+}
+
+// 🎯 SET SKOR
+function setScore(fieldId, score){
+  scoreStore[fieldId] = score;
+
+  [1,2,3,4].forEach(n => {
+    const btn = document.getElementById(`btn-${fieldId}-${n}`);
+    if(btn){
+      btn.className = 'score-btn px-3 py-1 rounded text-sm font-bold border ' +
+        getScoreColor(n === score ? n : 0);
+    }
+  });
+
+  updateOverallScore();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  renderStandard(1);
+});
 
         let allRecords = [];
     let currentEditId = null;
@@ -540,60 +613,66 @@ async function loadFromSheet() {
    function initApp() {
   document.getElementById('logo-ppd').src = LOGO_PPD;
   loadFromSheet();
-  generateSKPMForm();
-  document.getElementById('assessment-form').addEventListener('submit', handleFormSubmit);
+    document.getElementById('assessment-form').addEventListener('submit', handleFormSubmit);
   document.getElementById('form-date').valueAsDate = new Date();
 }
 
 
     // ✅ KAEDAH SKPM SEBENAR: Purata Aspek → Kod → Standard → Keseluruhan
-    function calculateSKPMScores() {
-      // Step 1: Purata setiap ASPEK (setiap item sebelumnya = 1 aspek)
-      const itemAverages = {};
-      skpmItems.forEach(item => {
-        const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
-        const score = currentItemScores[fieldId] !== undefined ? currentItemScores[fieldId] : 2;
-        itemAverages[fieldId] = score;
-      });
+   // ✅ KAEDAH SKPM SEBENAR (LAZY RENDER VERSION)
+// Purata Aspek → Kod → Standard → Keseluruhan
+function calculateSKPMScores() {
 
-      // Step 2: Purata setiap KOD dari semua aspek dalam kod tersebut
-      const kodAverages = {};
-      skpmItems.forEach(item => {
-        const kodKey = `${item.std}_${item.kod}`;
-        if (!kodAverages[kodKey]) kodAverages[kodKey] = [];
-        
-        const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
-        const score = currentItemScores[fieldId] !== undefined ? currentItemScores[fieldId] : 2;
-        kodAverages[kodKey].push(score);
-      });
+  // Step 1: Kumpul skor setiap aspek dari scoreStore
+  const kodAverages = {};
 
-      // Hitung purata setiap kod
-      const kodAveragesCalculated = {};
-      Object.keys(kodAverages).forEach(kodKey => {
-        const scores = kodAverages[kodKey];
-        kodAveragesCalculated[kodKey] = scores.reduce((a, b) => a + b, 0) / scores.length;
-      });
+  skpmItems.forEach(item => {
+    const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
+    const score = scoreStore[fieldId] !== undefined ? parseInt(scoreStore[fieldId]) : 2;
 
-      // Step 3: Purata setiap STANDARD dari purata kod
-      const standardAverages = [0, 0, 0, 0, 0];
-      
-      for (let std = 1; std <= 4; std++) {
-        const kodsForStandard = Object.keys(kodAveragesCalculated).filter(kodKey => kodKey.startsWith(std + '_'));
-        const kodScores = kodsForStandard.map(kodKey => kodAveragesCalculated[kodKey]);
-        standardAverages[std] = kodScores.length > 0 ? kodScores.reduce((a, b) => a + b, 0) / kodScores.length : 0;
-      }
+    const kodKey = `${item.std}_${item.kod}`;
+    if (!kodAverages[kodKey]) kodAverages[kodKey] = [];
+    kodAverages[kodKey].push(score);
+  });
 
-      // Step 4: Purata KESELURUHAN dari 4 standard
-      const overallScore = (standardAverages[1] + standardAverages[2] + standardAverages[3] + standardAverages[4]) / 4;
+  // Step 2: Purata setiap KOD
+  const kodAveragesCalculated = {};
+  Object.keys(kodAverages).forEach(kodKey => {
+    const scores = kodAverages[kodKey];
+    kodAveragesCalculated[kodKey] =
+      scores.reduce((a, b) => a + b, 0) / scores.length;
+  });
 
-      return {
-        standard1: standardAverages[1],
-        standard2: standardAverages[2],
-        standard3: standardAverages[3],
-        standard4: standardAverages[4],
-        overall: overallScore
-      };
-    }
+  // Step 3: Purata setiap STANDARD
+  const standardAverages = [0, 0, 0, 0, 0];
+
+  for (let std = 1; std <= 4; std++) {
+    const kodsForStandard = Object.keys(kodAveragesCalculated)
+      .filter(k => k.startsWith(std + '_'));
+
+    const kodScores = kodsForStandard.map(k => kodAveragesCalculated[k]);
+
+    standardAverages[std] = kodScores.length > 0
+      ? kodScores.reduce((a, b) => a + b, 0) / kodScores.length
+      : 0;
+  }
+
+  // Step 4: Purata KESELURUHAN
+  const overall =
+    (standardAverages[1] +
+     standardAverages[2] +
+     standardAverages[3] +
+     standardAverages[4]) / 4;
+
+  return {
+    standard1: standardAverages[1],
+    standard2: standardAverages[2],
+    standard3: standardAverages[3],
+    standard4: standardAverages[4],
+    overall: overall
+  };
+}
+
 
     function updateOverallScore() {
       const scores = calculateSKPMScores();
@@ -689,6 +768,13 @@ updateStandardMiniChart();
         html += `<div><div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-900">${stdNames[i-1]}</span><span class="text-sm font-bold text-gray-900">${avgScore.toFixed(2)}</span></div><div class="progress-bar"><div class="progress-fill" style="width: ${percent}%"></div></div></div>`;
       }
       container.innerHTML = html;
+// ✅ Init memory skor hanya sekali
+skpmItems.forEach(item => {
+  const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
+  if (scoreStore[fieldId] === undefined) {
+    scoreStore[fieldId] = 2;
+  }
+});
 
     }
 
@@ -751,40 +837,6 @@ function updateStandardMiniChart() {
   `).join('');
 }
 
-    function generateSKPMForm() {
-      const container = document.getElementById('skpm-form-container');
-      let html = '';
-      let currentStandard = 0;
-
-      skpmItems.forEach((item, index) => {
-        if (item.std !== currentStandard) {
-          if (currentStandard > 0) html += '</div></div>';
-          currentStandard = item.std;
-          const stdNames = ['', 'Kepemimpinan', 'Pengurusan Organisasi', 'Kurikulum, Kokurikulum & HEM', 'Pembelajaran & Pemudahcaraan'];
-          html += `<div class="standard-card rounded-lg p-4 sm:p-5">
-            <h4 class="font-bold text-gray-900 text-sm sm:text-base mb-4">Standard ${item.std}: ${stdNames[item.std]}</h4>
-            <div class="space-y-3">`;
-        }
-
-        const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
-        html += `<div class="item-row">
-          <label for="${fieldId}" class="item-label">${item.label}</label>
-          <div class="item-score">
-            <input type="range" id="${fieldId}" min="1" max="4" value="2" class="score-slider w-20 sm:w-24" oninput="updateScoreDisplay('${fieldId}')">
-            <span id="score-${fieldId}" class="score-display score-2 text-xs px-2 py-1 whitespace-nowrap">2</span>
-          </div>
-        </div>`;
-      });
-
-      html += '</div></div>';
-      container.innerHTML = html;
-// ✅ Init memory skor hanya sekali bila form dibina
-skpmItems.forEach(item => {
-  const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
-  currentItemScores[fieldId] = 2;
-});
-
-    }
 
     function updateScoreDisplay(fieldId) {
       const input = document.getElementById(fieldId);
@@ -795,7 +847,20 @@ skpmItems.forEach(item => {
       display.className = 'score-display text-xs px-2 py-1 whitespace-nowrap score-' + score;
       
       // ✅ SIMPAN SKOR KE MEMORY
-      currentItemScores[fieldId] = score;
+     function updateScoreDisplay(fieldId) {
+  const input = document.getElementById(fieldId);
+  const score = parseInt(input.value);
+  const display = document.getElementById(`score-${fieldId}`);
+  
+  display.textContent = score;
+  display.className = 'score-display text-xs px-2 py-1 whitespace-nowrap score-' + score;
+
+  // ✅ SIMPAN KE scoreStore (bukan currentItemScores)
+  scoreStore[fieldId] = score;
+
+  updateOverallScore();
+}
+
 
       updateOverallScore();
     }
@@ -804,10 +869,6 @@ skpmItems.forEach(item => {
       currentEditId = null;
       // 🔥 Jangan kosongkan memory, bina semula 268 item
 currentItemScores = {};
-skpmItems.forEach(item => {
-  const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g,'_');
-  currentItemScores[fieldId] = 2;
-});
 
       document.getElementById('modal-title').textContent = 'Penilaian SKPM Sekolah Baru';
       document.getElementById('form-id').value = '';
