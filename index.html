@@ -26,8 +26,6 @@
     background: white;
   }
 }
-
-
     body { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
     html, body, #app { height: 100%; width: 100%; }
     #app { overflow-y: auto; }
@@ -59,6 +57,20 @@
     .item-row { display: flex; align-items: center; gap: 1rem; padding: 0.75rem; background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; margin-bottom: 0.5rem; }
     .item-label { flex: 1; font-size: 0.875rem; font-weight: 500; color: #374151; }
     .item-score { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+.tab-btn{
+  padding:8px 14px;
+  border-radius:8px;
+  font-weight:600;
+  border:1px solid #d1d5db;
+  background:white;
+  cursor:pointer;
+}
+.tab-btn.active{
+  background:#2563eb;
+  color:white;
+  border-color:#1d4ed8;
+}
+
   </style>
   <style>@view-transition { navigation: auto; }</style>
  </head>
@@ -545,19 +557,27 @@ const scoreStore = {};
 
 function renderStandard(stdNumber){
   const container = document.getElementById('standardContainer');
-  container.innerHTML = '';
-
   const items = skpmItems.filter(i => i.std === stdNumber);
+
+  // ✅ highlight tab
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>{
+    b.classList.toggle('active', i === stdNumber-1);
+  });
+
+  let html = '';
 
   items.forEach(item => {
     const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g,'_');
-    const val = scoreStore[fieldId] ?? 1;
 
-    container.innerHTML += `
+    if (scoreStore[fieldId] === undefined) {
+      scoreStore[fieldId] = 2;
+    }
+    const val = scoreStore[fieldId];
+
+    html += `
       <div class="mb-3 p-3 border rounded bg-white shadow-sm">
         <div class="font-semibold">${item.kod} (${item.aspek})</div>
         <div class="text-sm mb-2">${item.label}</div>
-
         <div class="flex gap-2">
           ${[1,2,3,4].map(n => `
             <button
@@ -573,7 +593,13 @@ function renderStandard(stdNumber){
       </div>
     `;
   });
+
+  container.innerHTML = html;
+
+  // ✅ scroll ke atas setiap kali tukar standard
+  container.scrollTop = 0;
 }
+
 
 // 🎨 WARNA BUTANG
 function getScoreColor(score){
@@ -601,13 +627,9 @@ function setScore(fieldId, score){
   updateOverallScore();
 }
 
-document.addEventListener('DOMContentLoaded',()=>{
-  renderStandard(1);
-});
 
         let allRecords = [];
     let currentEditId = null;
-    let currentItemScores = {};
 
     
    function initApp() {
@@ -768,14 +790,6 @@ updateStandardMiniChart();
         html += `<div><div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-900">${stdNames[i-1]}</span><span class="text-sm font-bold text-gray-900">${avgScore.toFixed(2)}</span></div><div class="progress-bar"><div class="progress-fill" style="width: ${percent}%"></div></div></div>`;
       }
       container.innerHTML = html;
-// ✅ Init memory skor hanya sekali
-skpmItems.forEach(item => {
-  const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
-  if (scoreStore[fieldId] === undefined) {
-    scoreStore[fieldId] = 2;
-  }
-});
-
     }
 
     function updateStatusDistribution() {
@@ -838,122 +852,65 @@ function updateStandardMiniChart() {
 }
 
 
-    function updateScoreDisplay(fieldId) {
-      const input = document.getElementById(fieldId);
-      const score = parseInt(input.value);
-      const display = document.getElementById(`score-${fieldId}`);
-      
-      display.textContent = score;
-      display.className = 'score-display text-xs px-2 py-1 whitespace-nowrap score-' + score;
-      
-      // ✅ SIMPAN SKOR KE MEMORY
-     function updateScoreDisplay(fieldId) {
-  const input = document.getElementById(fieldId);
-  const score = parseInt(input.value);
-  const display = document.getElementById(`score-${fieldId}`);
-  
-  display.textContent = score;
-  display.className = 'score-display text-xs px-2 py-1 whitespace-nowrap score-' + score;
+    
+   function showAddModal() {
+  currentEditId = null;
 
-  // ✅ SIMPAN KE scoreStore (bukan currentItemScores)
-  scoreStore[fieldId] = score;
+  document.getElementById('modal-title').textContent = 'Penilaian SKPM Sekolah Baru';
+  document.getElementById('modal').classList.remove('hidden');
 
+  document.getElementById('form-school-name').value = '';
+  document.getElementById('form-school-code').value = '';
+  document.getElementById('form-evaluator').value = '';
+  document.getElementById('form-notes').value = '';
+  document.getElementById('form-action').value = '';
+  document.getElementById('form-date').valueAsDate = new Date();
+
+  // reset 268 skor
+  skpmItems.forEach(item => {
+    const id = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g,'_');
+    scoreStore[id] = 2;
+  });
+
+  renderStandard(1);
   updateOverallScore();
 }
 
 
-      updateOverallScore();
-    }
+   function editRecord(backendId) {
+  const record = allRecords.find(r => r.__backendId === backendId);
+  if (!record) return;
 
-    function showAddModal() {
-      currentEditId = null;
-      // 🔥 Jangan kosongkan memory, bina semula 268 item
-currentItemScores = {};
+  currentEditId = backendId;
 
-      document.getElementById('modal-title').textContent = 'Penilaian SKPM Sekolah Baru';
-      document.getElementById('form-id').value = '';
-      document.getElementById('modal').classList.remove('hidden');
-      
-      document.getElementById('form-school-name').value = '';
-      document.getElementById('form-school-code').value = '';
-      document.getElementById('form-evaluator').value = '';
-      document.getElementById('form-notes').value = '';
-      document.getElementById('form-action').value = '';
-      document.getElementById('form-date').valueAsDate = new Date();
-      
-      // ✅ INISIALISASI SLIDER DAN SIMPAN SKOR KE MEMORY
-      skpmItems.forEach(item => {
-        const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
-        const input = document.getElementById(fieldId);
-        if (input) {
-          input.value = '2';
-          currentItemScores[fieldId] = 2;
-          const display = document.getElementById(`score-${fieldId}`);
-          if (display) {
-            display.textContent = '2';
-            display.className = 'score-display score-2 text-xs px-2 py-1 whitespace-nowrap';
-          }
-        }
-      });
-      updateOverallScore();
-    }
+  document.getElementById('modal-title').textContent = 'Edit Penilaian SKPM';
+  document.getElementById('form-school-name').value = record.school_name || '';
+  document.getElementById('form-school-code').value = record.school_code || '';
+  document.getElementById('form-date').value = record.tarikh_penilaian?.split('T')[0] || '';
+  document.getElementById('form-evaluator').value = record.penilai_ppd || '';
+  document.getElementById('form-notes').value = record.catatan_umum || '';
+  document.getElementById('form-action').value = record.tindakan_susulan || '';
 
-    function editRecord(backendId) {
-      const record = allRecords.find(r => r.__backendId === backendId);
-      if (!record) return;
+  let oldScores = {};
+  try { oldScores = JSON.parse(record.item_scores || "{}"); } catch(e){}
 
-      currentEditId = backendId;
-      currentItemScores = {};
-      document.getElementById('modal-title').textContent = 'Edit Penilaian SKPM';
-      document.getElementById('form-id').value = backendId;
-      document.getElementById('form-school-name').value = record.school_name || '';
-      document.getElementById('form-school-code').value = record.school_code || '';
-      document.getElementById('form-date').value = record.tarikh_penilaian?.split('T')[0] || '';
-      document.getElementById('form-evaluator').value = record.penilai_ppd || '';
-      document.getElementById('form-notes').value = record.catatan_umum || '';
-      document.getElementById('form-action').value = record.tindakan_susulan || '';
+  // masukkan semua skor ke memory
+  skpmItems.forEach(item => {
+    const id = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g,'_');
+    scoreStore[id] = oldScores[id] ?? 2;
+  });
 
-     let oldScores = {};
-try {
-  oldScores = record.item_scores ? JSON.parse(record.item_scores) : {};
-} catch (e) {
-  oldScores = {};
+  renderStandard(1);
+  updateOverallScore();
+
+  document.getElementById('modal').classList.remove('hidden');
 }
 
-const fullItemScores = {};
-skpmItems.forEach(item => {
-  const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g,'_');
-  fullItemScores[fieldId] = oldScores[fieldId] ?? 2;
-});
-
-currentItemScores = fullItemScores;
-
-
-      skpmItems.forEach(item => {
-        const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
-        const input = document.getElementById(fieldId);
-        const score = currentItemScores[fieldId] || 2;
-        if (input) {
-          input.value = score;
-          const display = document.getElementById(`score-${fieldId}`);
-          if (display) {
-            display.textContent = score;
-            display.className = 'score-display text-xs px-2 py-1 whitespace-nowrap score-' + score;
-          }
-        }
-      });
-
-      const overallScore = record.skor_keseluruhan || 2;
-      document.getElementById('overall-score-display').textContent = overallScore.toFixed(2);
-
-      document.getElementById('modal').classList.remove('hidden');
-    }
 
     function closeModal() {
       document.getElementById('modal').classList.add('hidden');
       currentEditId = null;
-      currentItemScores = {};
-    }
+         }
 
    async function handleFormSubmit(e) {
   e.preventDefault();
@@ -977,10 +934,10 @@ currentItemScores = fullItemScores;
     const fullItemScores = {};
     skpmItems.forEach(item => {
       const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g,'_');
-      fullItemScores[fieldId] = currentItemScores[fieldId] ?? 2;
+      fullItemScores[fieldId] = scoreStore[fieldId] ?? 2;
+
     });
 
-    currentItemScores = fullItemScores;
 
     const scores = calculateSKPMScores();
 
