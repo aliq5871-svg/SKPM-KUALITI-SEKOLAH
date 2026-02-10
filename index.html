@@ -147,6 +147,11 @@
     </div>
     <div class="bg-white card-modern rounded-xl overflow-hidden mb-6 sm:mb-8">
      <div class="px-4 sm:px-6 py-3 sm:py-5 border-b border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+<button onclick="exportExcel()"
+  class="bg-green-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium text-sm hover:bg-green-700 transition flex items-center gap-2">
+  📥 Export Excel Semua Rekod
+</button>
+
       <h2 class="text-base sm:text-lg font-bold text-gray-900">Rekod Penilaian</h2><button onclick="showAddModal()" class="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700 transition flex items-center justify-center gap-2">
        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
        </svg> Penilaian Baru </button>
@@ -1071,6 +1076,73 @@ function updateStandardMiniChart() {
     }
 
     window.addEventListener('load', initApp);
+function exportExcel() {
+  if (allRecords.length === 0) {
+    showToast("Tiada rekod untuk dieksport.");
+    return;
+  }
+
+  let table = `
+  <table border="1">
+    <tr>
+      <th>Nama Sekolah</th>
+      <th>Kod Sekolah</th>
+      <th>Tarikh Penilaian</th>
+      <th>Penilai</th>
+      <th>Skor Standard 1</th>
+      <th>Skor Standard 2</th>
+      <th>Skor Standard 3</th>
+      <th>Skor Standard 4</th>
+      <th>Skor Keseluruhan</th>
+      <th>Status</th>
+      <th>Catatan</th>
+      <th>Tindakan Susulan</th>
+    </tr>
+  `;
+
+  allRecords.forEach(r => {
+    table += `
+      <tr>
+        <td>${r.school_name}</td>
+        <td>${r.school_code}</td>
+        <td>${new Date(r.tarikh_penilaian).toLocaleDateString("ms-MY")}</td>
+        <td>${r.penilai_ppd}</td>
+        <td>${r.skor_standard_1.toFixed(2)}</td>
+        <td>${r.skor_standard_2.toFixed(2)}</td>
+        <td>${r.skor_standard_3.toFixed(2)}</td>
+        <td>${r.skor_standard_4.toFixed(2)}</td>
+        <td>${r.skor_keseluruhan.toFixed(2)}</td>
+        <td>${getStatus(r.skor_keseluruhan)}</td>
+        <td>${r.catatan_umum || ''}</td>
+        <td>${r.tindakan_susulan || ''}</td>
+      </tr>
+    `;
+  });
+
+  table += `</table>`;
+
+  const html = `
+    <html xmlns:o="urn:schemas-microsoft-com:office:office" 
+          xmlns:x="urn:schemas-microsoft-com:office:excel">
+    <head>
+      <meta charset="UTF-8">
+    </head>
+    <body>
+      ${table}
+    </body>
+    </html>
+  `;
+
+  const blob = new Blob([html], {
+    type: "application/vnd.ms-excel;charset=utf-8;"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "Laporan_SKPM_PPD_Kota_Marudu.xls";
+  link.click();
+}
 
   </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c9fef110661d04c',t:'MTc3MDQzNjMzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
