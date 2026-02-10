@@ -353,209 +353,232 @@ async function loadFromSheet() {
     // SKPM Items Data (268 items dengan Aspek)
     const skpmItems = [
       // Standard 1: Kepemimpinan (44 items)
-      { std: 1, kod: '1.1.1', aspek: 'a', label: '1.1.1(a) Membuat analisis SWOT / analisis lain yang bersesuaian' },
-      { std: 1, kod: '1.1.1', aspek: 'b', label: '1.1.1(b) Menentukan sasaran / Petunjuk Prestasi Utama' },
-      { std: 1, kod: '1.1.1', aspek: 'c', label: '1.1.1(c) Mendokumenkan hala tuju yang ditetapkan' },
-      { std: 1, kod: '1.1.1', aspek: 'd', label: '1.1.1(d) Menyebarluaskan hala tuju yang ditetapkan' },
-      { std: 1, kod: '1.1.2', aspek: 'a', label: '1.1.2(a) Menyediakan garis panduan/format perancangan strategik' },
-      { std: 1, kod: '1.1.2', aspek: 'b', label: '1.1.2(b) Merangka strategi pencapaian sasaran' },
-      { std: 1, kod: '1.1.2', aspek: 'c', label: '1.1.2(c) Memantau penyediaan perancangan strategik' },
-      { std: 1, kod: '1.1.2', aspek: 'd', label: '1.1.2(d) Menyiapkan dokumen perancangan strategik' },
-      { std: 1, kod: '1.1.3', aspek: 'a', label: '1.1.3(a) Melaksanakan pemantauan' },
-      { std: 1, kod: '1.1.3', aspek: 'b', label: '1.1.3(b) Menyediakan rumusan pemantauan' },
-      { std: 1, kod: '1.1.3', aspek: 'c', label: '1.1.3(c) Mengambil tindakan susulan' },
-      { std: 1, kod: '1.1.4', aspek: 'a', label: '1.1.4(a) Melaksanakan PdP' },
-      { std: 1, kod: '1.1.4', aspek: 'b', label: '1.1.4(b) Menyediakan Rancangan Pelajaran Harian(RPH)' },
-      { std: 1, kod: '1.1.4', aspek: 'c', label: '1.1.4(c) Melaksanakan peperiksaan/pentaksiran terhadap tahap penguasaan murid' },
-      { std: 1, kod: '1.1.4', aspek: 'd', label: '1.1.4(d) Menyemak hasil kerja murid' },
-      { std: 1, kod: '1.1.5', aspek: 'a', label: '1.1.5(a) Melaksanakan pencerapan PdP' },
-      { std: 1, kod: '1.1.5', aspek: 'b', label: '1.1.5(b) Memberi maklum balas & bimbingan' },
-      { std: 1, kod: '1.1.5', aspek: 'c', label: '1.1.5(c) Mengambil tindakan susulan' },
-      { std: 1, kod: '1.1.6', aspek: 'a', label: '1.1.6(a) Menganalisis pencapaian murid' },
-      { std: 1, kod: '1.1.6', aspek: 'b', label: '1.1.6(b) Menyediakan rumusan kemajuan dan pencapaian murid' },
-      { std: 1, kod: '1.1.6', aspek: 'c', label: '1.1.6(c) Mengadakan dialog prestasi' },
-      { std: 1, kod: '1.1.6', aspek: 'd', label: '1.1.6(d) Mengambil tindakan susulan' },
-      { std: 1, kod: '1.1.7', aspek: 'a', label: '1.1.7(a) Mengesan jangkaan masalah/isu' },
-      { std: 1, kod: '1.1.7', aspek: 'b', label: '1.1.7(b) Mengenal pasti punca masalah/isu' },
-      { std: 1, kod: '1.1.7', aspek: 'c', label: '1.1.7(c) Mengambil tindakan terhadap masalah/isu' },
-      { std: 1, kod: '1.1.7', aspek: 'd', label: '1.1.7(d) Menyelesaikan masalah/isu' },
-      { std: 1, kod: '1.1.7', aspek: 'e', label: '1.1.7(e) Mengambil langkah kawalan/tindakan pencegahan' },
-      { std: 1, kod: '1.2.1', aspek: 'a', label: '1.2.1(a) Memberi taklimat / bengkel / kursus / ceramah' },
-      { std: 1, kod: '1.2.1', aspek: 'b', label: '1.2.1(b) Memberi panduan / tunjuk ajar/tunjuk cara / nasihat/penerangan' },
-      { std: 1, kod: '1.2.1', aspek: 'c', label: '1.2.1(c) Memberi maklum balas berkaitan prestasi kerja' },
-      { std: 1, kod: '1.2.2', aspek: 'a', label: '1.2.2(a) Memberi panduan / tunjuk ajar/tunjuk cara/nasihat/ penerangan' },
-      { std: 1, kod: '1.2.2', aspek: 'b', label: '1.2.2(b) Memberi maklum balas berkaitan prestasi kerja' },
-      { std: 1, kod: '1.2.2', aspek: 'c', label: '1.2.2(c) Memberi pendedahan berkaitan tugas kepimpinan' },
-      { std: 1, kod: '1.3.1', aspek: 'a', label: '1.3.1(a) Melaksanakan tugas berkualiti' },
-      { std: 1, kod: '1.3.1', aspek: 'b', label: '1.3.1(b) Mempamerkan penampilan berwibawa' },
-      { std: 1, kod: '1.3.1', aspek: 'c', label: '1.3.1(c) Bertindak sebagai pakar rujuk' },
-      { std: 1, kod: '1.3.1', aspek: 'd', label: '1.3.1(d) Memperlihatkan komunikasi berkesan' },
-      { std: 1, kod: '1.3.2', aspek: 'a', label: '1.3.2(a) Menyediakan saluran komunikasi' },
-      { std: 1, kod: '1.3.2', aspek: 'b', label: '1.3.2(b) Mendengar pandangan pelbagai pihak' },
-      { std: 1, kod: '1.3.2', aspek: 'c', label: '1.3.2(c) Menerima pandangan/maklum balas yang berbeza' },
-      { std: 1, kod: '1.3.2', aspek: 'd', label: '1.3.2(d) Mengambil tindakan terhadap pandangan/maklum balas' },
-      { std: 1, kod: '1.3.3', aspek: 'a', label: '1.3.3(a) Memberi maklum balas positif berkaitan prestasi/kemajuan/pencapaian kerja' },
-      { std: 1, kod: '1.3.3', aspek: 'b', label: '1.3.3(b) Memberi penghargaan/pengiktirafan' },
-      { std: 1, kod: '1.3.3', aspek: 'c', label: '1.3.3(c) Menyediakan keperluan & kemudahan' },
-      { std: 1, kod: '1.3.3', aspek: 'd', label: '1.3.3(d) Melibatkan diri dalam aktiviti' },
+      { std: 1, kod: '1.1.1.PGB menetapkan hala tuju sekolah secara terancang', aspek: 'a', label: ' Membuat analisis SWOT / analisis lain yang bersesuaian' },
+      { std: 1, kod: '1.1.1.PGB menetapkan hala tuju sekolah secara terancang', aspek: 'b', label: ' Menentukan sasaran / Petunjuk Prestasi Utama' },
+      { std: 1, kod: '1.1.1.PGB menetapkan hala tuju sekolah secara terancang', aspek: 'c', label: ' Mendokumenkan hala tuju yang ditetapkan' },
+      { std: 1, kod: '1.1.1.PGB menetapkan hala tuju sekolah secara terancang', aspek: 'd', label: ' Menyebarluaskan hala tuju yang ditetapkan' },
+      { std: 1, kod: '1.1.2.PGB mengetuai penyediaan Rancangan Pemajuan Sekolah secara terancang dan sistematik', aspek: 'a', label: ' Menyediakan garis panduan/format perancangan strategik' },
+      { std: 1, kod: '1.1.2.PGB mengetuai penyediaan Rancangan Pemajuan Sekolah secara terancang dan sistematik',aspek: 'b', label: ' Merangka strategi pencapaian sasaran' },
+      { std: 1, kod: '1.1.2.PGB mengetuai penyediaan Rancangan Pemajuan Sekolah secara terancang dan sistematik',aspek: 'c', label: ' Memantau penyediaan perancangan strategik' },
+      { std: 1, kod: '1.1.2.PGB mengetuai penyediaan Rancangan Pemajuan Sekolah secara terancang dan sistematik',aspek: 'd', label: ' Menyiapkan dokumen perancangan strategik' },
+      { std: 1, kod: '1.1.3.PGB mengetuai pemantauan pengoperasian sekolah secara terancang dan sistematik', aspek: 'a', label: ' Melaksanakan pemantauan' },
+      { std: 1, kod: '1.1.3.PGB mengetuai pemantauan pengoperasian sekolah secara terancang dan sistematik', aspek: 'b', label: ' Menyediakan rumusan pemantauan' },
+      { std: 1, kod: '1.1.3.PGB mengetuai pemantauan pengoperasian sekolah secara terancang dan sistematik', aspek: 'c', label: ' Mengambil tindakan susulan' },
+      { std: 1, kod: '1.1.4.PGB menerajui aktiviti instruksional dalam pelaksanaan pdp secara profesional dan terancang', aspek: 'a', label: ' Melaksanakan PdP' },
+      { std: 1, kod: '1.1.4.PGB menerajui aktiviti instruksional dalam pelaksanaan pdp secara profesional dan terancang',  aspek: 'b', label: ' Menyediakan Rancangan Pelajaran Harian(RPH)' },
+      { std: 1, kod: '1.1.4.PGB menerajui aktiviti instruksional dalam pelaksanaan pdp secara profesional dan terancang',  aspek: 'c', label: ' Melaksanakan peperiksaan/pentaksiran terhadap tahap penguasaan murid' },
+      { std: 1, kod: '1.1.4.PGB menerajui aktiviti instruksional dalam pelaksanaan pdp secara profesional dan terancang',  aspek: 'd', label: ' Menyemak hasil kerja murid' },
+      { std: 1, kod: '1.1.5.PGB menerajui aktiviti instruksional dalam pelaksanaan pencerapan pdp secara profesional dan terancang', aspek: 'a', label: ' Melaksanakan pencerapan PdP' },
+      { std: 1, kod: '1.1.5.PGB menerajui aktiviti instruksional dalam pelaksanaan pencerapan pdp secara profesional dan terancang', aspek: 'b', label: ' Memberi maklum balas & bimbingan' },
+      { std: 1, kod: '1.1.5.PGB menerajui aktiviti instruksional dalam pelaksanaan pencerapan pdp secara profesional dan terancang', aspek: 'c', label: ' Mengambil tindakan susulan' },
+      { std: 1, kod: '1.1.6.PGB menerajui aktiviti instruksional dalam pelaksanaan pemantauan kemajuan dan pencapaian murid secara sistematik dan terancang', aspek: 'a', label: ' Menganalisis pencapaian murid' },
+      { std: 1, kod: '1.1.6.PGB menerajui aktiviti instruksional dalam pelaksanaan pemantauan kemajuan dan pencapaian murid secara sistematik dan terancang', aspek: 'b', label: ' Menyediakan rumusan kemajuan dan pencapaian murid' },
+      { std: 1, kod: '1.1.6.PGB menerajui aktiviti instruksional dalam pelaksanaan pemantauan kemajuan dan pencapaian murid secara sistematik dan terancang', aspek: 'c', label: ' Mengadakan dialog prestasi' },
+      { std: 1, kod: '1.1.6.PGB menerajui aktiviti instruksional dalam pelaksanaan pemantauan kemajuan dan pencapaian murid secara sistematik dan terancang', aspek: 'd', label: ' Mengambil tindakan susulan' },
+      { std: 1, kod: '1.1.7.PGB menangani masalah pengoperasian sekolah secara profesional dan terancang', aspek: 'a', label: ' Mengesan jangkaan masalah/isu' },
+      { std: 1, kod: '1.1.7.PGB menangani masalah pengoperasian sekolah secara profesional dan terancang',  aspek: 'b', label: ' Mengenal pasti punca masalah/isu' },
+      { std: 1, kod: '1.1.7.PGB menangani masalah pengoperasian sekolah secara profesional dan terancang',  aspek: 'c', label: ' Mengambil tindakan terhadap masalah/isu' },
+      { std: 1, kod: '1.1.7.PGB menangani masalah pengoperasian sekolah secara profesional dan terancang',  aspek: 'd', label: ' Menyelesaikan masalah/isu' },
+      { std: 1, kod: '1.1.7.PGB menangani masalah pengoperasian sekolah secara profesional dan terancang',  aspek: 'e', label: ' Mengambil langkah kawalan/tindakan pencegahan' },
+      { std: 1, kod: '1.2.1.PGB memberi bimbingan kepada guru dan AKP secara profesional dan terancang', aspek: 'a', label: 'Memberi taklimat / bengkel / kursus / ceramah' },
+      { std: 1, kod: '1.2.1.PGB memberi bimbingan kepada guru dan AKP secara profesional dan terancang', aspek: 'b', label: ' Memberi panduan / tunjuk ajar/tunjuk cara / nasihat/penerangan' },
+      { std: 1, kod: '1.2.1.PGB memberi bimbingan kepada guru dan AKP secara profesional dan terancang', aspek: 'c', label: '1.2.1(c) Memberi maklum balas berkaitan prestasi kerja' },
+      { std: 1, kod: '1.2.2.PGB memberi bimbingan kepada barisan pemimpin yang diturunkan kuasa secara profesional dan terancang', aspek: 'a', label: ' Memberi panduan / tunjuk ajar/tunjuk cara/nasihat/ penerangan' },
+      { std: 1, kod: '1.2.2.PGB memberi bimbingan kepada barisan pemimpin yang diturunkan kuasa secara profesional dan terancang', aspek: 'b', label: ' Memberi maklum balas berkaitan prestasi kerja' },
+      { std: 1, kod: '1.2.2.PGB memberi bimbingan kepada barisan pemimpin yang diturunkan kuasa secara profesional dan terancang', aspek: 'c', label: ' Memberi pendedahan berkaitan tugas kepimpinan' },
+      { std: 1, kod: '1.3.1.PGB mendorong warga sekolah dengan menjadi suri teladan secara profesional dan terancang', aspek: 'a', label: ' Melaksanakan tugas berkualiti' },
+      { std: 1, kod: '1.3.1.PGB mendorong warga sekolah dengan menjadi suri teladan secara profesional dan terancang',  aspek: 'b', label: ' Mempamerkan penampilan berwibawa' },
+      { std: 1, kod: '1.3.1.PGB mendorong warga sekolah dengan menjadi suri teladan secara profesional dan terancang',  aspek: 'c', label: ' Bertindak sebagai pakar rujuk' },
+      { std: 1, kod: '1.3.1.PGB mendorong warga sekolah dengan menjadi suri teladan secara profesional dan terancang',  aspek: 'd', label: ' Memperlihatkan komunikasi berkesan' },
+      { std: 1, kod: '1.3.2.PGB menggalakan warga sekolah memberi input berkaitan pemajuan sekolah secara profesional dan terancang', aspek: 'a', label: ' Menyediakan saluran komunikasi' },
+      { std: 1, kod: '1.3.2.PGB menggalakan warga sekolah memberi input berkaitan pemajuan sekolah secara profesional dan terancang', aspek: 'b', label: ' Mendengar pandangan pelbagai pihak' },
+      { std: 1, kod: '1.3.2.PGB menggalakan warga sekolah memberi input berkaitan pemajuan sekolah secara profesional dan terancang', aspek: 'c', label: ' Menerima pandangan/maklum balas yang berbeza' },
+      { std: 1, kod: '1.3.2.PGB menggalakan warga sekolah memberi input berkaitan pemajuan sekolah secara profesional dan terancang', aspek: 'd', label: ' Mengambil tindakan terhadap pandangan/maklum balas' },
+      { std: 1, kod: '1.3.3.PGB menggerakkan warga sekolah dalam melaksanakan tanggungjawab secara terancang', aspek: 'a', label: ' Memberi maklum balas positif berkaitan prestasi/kemajuan/pencapaian kerja' },
+      { std: 1, kod: '1.3.3.PGB menggerakkan warga sekolah dalam melaksanakan tanggungjawab secara terancang', aspek: 'b', label: ' Memberi penghargaan/pengiktirafan' },
+      { std: 1, kod: '1.3.3.PGB menggerakkan warga sekolah dalam melaksanakan tanggungjawab secara terancang', aspek: 'c', label: 'Menyediakan keperluan & kemudahan' },
+      { std: 1, kod: '1.3.3.PGB menggerakkan warga sekolah dalam melaksanakan tanggungjawab secara terancang', aspek: 'd', label: ' Melibatkan diri dalam aktiviti' },
       // Standard 2: Pengurusan Organisasi (38 items)
-      { std: 2, kod: '2.1.1', aspek: 'a', label: '2.1.1(a) Mengagihkan tugas' },
-      { std: 2, kod: '2.1.1', aspek: 'b', label: '2.1.1(b) Menyediakan perincian tugas' },
-      { std: 2, kod: '2.1.1', aspek: 'c', label: '2.1.1(c) Menyebarluaskan perincian tugas' },
-      { std: 2, kod: '2.1.1', aspek: 'd', label: '2.1.1(d) Menilai prestasi kerja' },
-      { std: 2, kod: '2.1.1', aspek: 'e', label: '2.1.1(e) Melaksanakan urusan perkhidmatan(SPP/ePROPER)' },
-      { std: 2, kod: '2.1.2', aspek: 'a', label: '2.1.2(a) Merancang program pembangunan profesionalsme' },
-      { std: 2, kod: '2.1.2', aspek: 'b', label: '2.1.2(b) Melaksanakan program pembangunan profesionalsme' },
-      { std: 2, kod: '2.1.2', aspek: 'c', label: '2.1.2(c) Menilai keberkesanan Program' },
-      { std: 2, kod: '2.1.2', aspek: 'd', label: '2.1.2(d) Mengambil Tindakan susulan' },
-      { std: 2, kod: '2.2.1', aspek: 'a', label: '2.2.1(a) Menyediakan harta modal dan aset alih bernilai rendah' },
-      { std: 2, kod: '2.2.1', aspek: 'b', label: '2.2.1(b) Menggunakan harta modal,aset alih bernilai rendah dan infrastruktur' },
-      { std: 2, kod: '2.2.1', aspek: 'c', label: '2.2.1(c) Menyelenggara harta modal dan infrastruktur' },
-      { std: 2, kod: '2.2.1', aspek: 'd', label: '2.2.1(d) Mengambil Tindakan terhadap hasil pemeriksaan harta modal' },
-      { std: 2, kod: '2.2.1', aspek: 'e', label: '2.2.1(e) Merekod perolehan penggunaan dan penyelengaraan' },
-      { std: 2, kod: '2.3.1', aspek: 'a', label: '2.3.1(a) Menyediakan anggaran perbelanjaan' },
-      { std: 2, kod: '2.3.1', aspek: 'b', label: '2.3.1(b) Melaksanakan perbelanjaan' },
-      { std: 2, kod: '2.3.1', aspek: 'c', label: '2.3.1(c) Melaksanakan pemantauan perbelanjaan' },
-      { std: 2, kod: '2.3.1', aspek: 'd', label: '2.3.1(d) Mengambil tindakan susulan' },
-      { std: 2, kod: '2.4.1', aspek: 'a', label: '2.4.1(a) Menyediakan alat/bahan,bahan cetak/elektronik dan TMK' },
-      { std: 2, kod: '2.4.1', aspek: 'b', label: '2.4.1(b) Menyimpan dan menyusun atur alat/bahan' },
-      { std: 2, kod: '2.4.1', aspek: 'c', label: '2.4.1(c) Menggunakan alat/bahan,bahan cetak/elektronik dan TMK' },
-      { std: 2, kod: '2.4.1', aspek: 'd', label: '2.4.1(d) Melaksanakan penyeliaan penggunaan alat/bahan' },
-      { std: 2, kod: '2.5.1', aspek: 'a', label: '2.5.1(a) Membersihkan kawasan,bangunan dan kemudahan sekolah' },
-      { std: 2, kod: '2.5.1', aspek: 'b', label: '2.5.1(b) Menceriakan kawasan,bangunan dan kemudahan sekolah' },
-      { std: 2, kod: '2.5.1', aspek: 'c', label: '2.5.1(c) Memulihkan kawasan bangunan dan kemudahan sekolah' },
-      { std: 2, kod: '2.5.1', aspek: 'd', label: '2.5.1(d) Mewujudkan ciri-ciri keselamatan' },
-      { std: 2, kod: '2.5.2', aspek: 'a', label: '2.5.2(a) Menguatkuasakan ketetapan/peraturan sekolah' },
-      { std: 2, kod: '2.5.2', aspek: 'b', label: '2.5.2(b) Merancang program peningkatan keakraban' },
-      { std: 2, kod: '2.5.2', aspek: 'c', label: '2.5.2(c) Melaksanankan program peningkatan keakraban' },
-      { std: 2, kod: '2.6.1', aspek: 'a', label: '2.6.1(a) Menyebarkan maklumat tentang kepelbagaian masyarakat Malaysia' },
-      { std: 2, kod: '2.6.1', aspek: 'b', label: '2.6.1(b) Merancang program berteraskan perpaduan/silang budaya' },
-      { std: 2, kod: '2.6.1', aspek: 'c', label: '2.6.1(c) Melaksanakan program berteraskan perpaduan/silang budaya' },
-      { std: 2, kod: '2.6.1', aspek: 'd', label: '2.6.1(d) Merancang program jaringan/jalinan berteraskan perpaduan' },
-      { std: 2, kod: '2.6.1', aspek: 'e', label: '2.6.1(e) Melaksanakan program jaringan/jalinan berteraskan perpaduan' },
-      { std: 2, kod: '2.7.1', aspek: 'a', label: '2.7.1(a) Merancang program yang melibatkan ibu bapa/penjaga,komuniti' },
-      { std: 2, kod: '2.7.1', aspek: 'b', label: '2.7.1(b) Melaksanakan program yang melibatkan ibu bapa/penjaga' },
-      { std: 2, kod: '2.7.1', aspek: 'c', label: '2.7.1(c) Mendapatkan sumbangan sokongan/khidmat kepakaran' },
-      { std: 2, kod: '2.7.1', aspek: 'd', label: '2.7.1(d) Mewujudkan rangkaian komuniti' },
+      { std: 2, kod: '2.1.1.Sumber manusia diurus secara sistematik dan terancang', aspek: 'a', label: ' Mengagihkan tugas' },
+      { std: 2, kod: '2.1.1.Sumber manusia diurus secara sistematik dan terancang', aspek: 'b', label: ' Menyediakan perincian tugas' },
+      { std: 2, kod: '2.1.1.Sumber manusia diurus secara sistematik dan terancang', aspek: 'c', label: ' Menyebarluaskan perincian tugas' },
+      { std: 2, kod: '2.1.1.Sumber manusia diurus secara sistematik dan terancang', aspek: 'd', label: ' Menilai prestasi kerja' },
+      { std: 2, kod: '2.1.1.Sumber manusia diurus secara sistematik dan terancang', aspek: 'e', label: ' Melaksanakan urusan perkhidmatan(SPP/ePROPER)' },
+      { std: 2, kod: '2.1.2.Pembangunan sumber manusia diurus secara terancang', aspek: 'a', label: ' Merancang program pembangunan profesionalsme' },
+      { std: 2, kod: '2.1.2.Pembangunan sumber manusia diurus secara terancang', aspek: 'b', label: ' Melaksanakan program pembangunan profesionalsme' },
+      { std: 2, kod: '2.1.2.Pembangunan sumber manusia diurus secara terancang', aspek: 'c', label: ' Menilai keberkesanan Program' },
+      { std: 2, kod: '2.1.2.Pembangunan sumber manusia diurus secara terancang', aspek: 'd', label: ' Mengambil Tindakan susulan' },
+      { std: 2, kod: '2.2.1.Aset alih dan aset tak alih diurus secara sistematik dan terancang', aspek: 'a', label: ' Menyediakan harta modal dan aset alih bernilai rendah' },
+      { std: 2, kod: '2.2.1.Aset alih dan aset tak alih diurus secara sistematik dan terancang', aspek: 'b', label: ' Menggunakan harta modal,aset alih bernilai rendah dan infrastruktur' },
+      { std: 2, kod: '2.2.1.Aset alih dan aset tak alih diurus secara sistematik dan terancang', aspek: 'c', label: ' Menyelenggara harta modal dan infrastruktur' },
+      { std: 2, kod: '2.2.1.Aset alih dan aset tak alih diurus secara sistematik dan terancang', aspek: 'd', label: ' Mengambil Tindakan terhadap hasil pemeriksaan harta modal' },
+      { std: 2, kod: '2.2.1.Aset alih dan aset tak alih diurus secara sistematik dan terancang', aspek: 'e', label: ' Merekod perolehan penggunaan dan penyelengaraan' },
+      { std: 2, kod: '2.3.1.Kewangan diurus secara sistematik dan terancang', aspek: 'a', label: ' Menyediakan anggaran perbelanjaan' },
+      { std: 2, kod: '2.3.1.Kewangan diurus secara sistematik dan terancang', aspek: 'b', label: ' Melaksanakan perbelanjaan' },
+      { std: 2, kod: '2.3.1.Kewangan diurus secara sistematik dan terancang', aspek: 'c', label: ' Melaksanakan pemantauan perbelanjaan' },
+      { std: 2, kod: '2.3.1.Kewangan diurus secara sistematik dan terancang', aspek: 'd', label: ' Mengambil tindakan susulan' },
+      { std: 2, kod: '2.4.1.Sumber pendidikan diurus secara sistematik dan terancang', aspek: 'a', label: ' Menyediakan alat/bahan,bahan cetak/elektronik dan TMK' },
+      { std: 2, kod: '2.4.1.Sumber pendidikan diurus secara sistematik dan terancang', aspek: 'b', label: ' Menyimpan dan menyusun atur alat/bahan' },
+      { std: 2, kod: '2.4.1.Sumber pendidikan diurus secara sistematik dan terancang', aspek: 'c', label: ' Menggunakan alat/bahan,bahan cetak/elektronik dan TMK' },
+      { std: 2, kod: '2.4.1.Sumber pendidikan diurus secara sistematik dan terancang', aspek: 'd', label: ' Melaksanakan penyeliaan penggunaan alat/bahan' },
+      { std: 2, kod: '2.5.1.Pesekitaran fizikal diselenggara secara sistematik dan terancang', aspek: 'a', label: ' Membersihkan kawasan,bangunan dan kemudahan sekolah' },
+      { std: 2, kod: '2.5.1.Pesekitaran fizikal diselenggara secara sistematik dan terancang', aspek: 'b', label: ' Menceriakan kawasan,bangunan dan kemudahan sekolah' },
+      { std: 2, kod: '2.5.1.Pesekitaran fizikal diselenggara secara sistematik dan terancang', aspek: 'c', label: ' Memulihkan kawasan bangunan dan kemudahan sekolah' },
+      { std: 2, kod: '2.5.1.Pesekitaran fizikal diselenggara secara sistematik dan terancang', aspek: 'd', label: ' Mewujudkan ciri-ciri keselamatan' },
+      { std: 2, kod: '2.5.2.Suasana yang selesa dan harmoni diwujud dan dikekalkan secara sistematik dan terancang', aspek: 'a', label: ' Menguatkuasakan ketetapan/peraturan sekolah' },
+      { std: 2, kod: '2.5.2.Suasana yang selesa dan harmoni diwujud dan dikekalkan secara sistematik dan terancang', aspek: 'b', label: ' Merancang program peningkatan keakraban' },
+      { std: 2, kod: '2.5.2.Suasana yang selesa dan harmoni diwujud dan dikekalkan secara sistematik dan terancang', aspek: 'c', label: ' Melaksanankan program peningkatan keakraban' },
+      { std: 2, kod: '2.6.1.Pemahaman dan penerimaan terhadap kepelbagaian masyarakat malaysia diurus secara terancang', aspek: 'a', label: ' Menyebarkan maklumat tentang kepelbagaian masyarakat Malaysia' },
+      { std: 2, kod: '2.6.1.Pemahaman dan penerimaan terhadap kepelbagaian masyarakat malaysia diurus secara terancang', aspek: 'b', label: ' Merancang program berteraskan perpaduan/silang budaya' },
+      { std: 2, kod: '2.6.1.Pemahaman dan penerimaan terhadap kepelbagaian masyarakat malaysia diurus secara terancang', aspek: 'c', label: ' Melaksanakan program berteraskan perpaduan/silang budaya' },
+      { std: 2, kod: '2.6.1.Pemahaman dan penerimaan terhadap kepelbagaian masyarakat malaysia diurus secara terancang', aspek: 'd', label: ' Merancang program jaringan/jalinan berteraskan perpaduan' },
+      { std: 2, kod: '2.6.1.Pemahaman dan penerimaan terhadap kepelbagaian masyarakat malaysia diurus secara terancang', aspek: 'e', label: ' Melaksanakan program jaringan/jalinan berteraskan perpaduan' },
+      { std: 2, kod: '2.7.1.Permufakatan strategik diusahkan secara profesional dan terancang', aspek: 'a', label: ' Merancang program yang melibatkan ibu bapa/penjaga,komuniti' },
+      { std: 2, kod: '2.7.1.Permufakatan strategik diusahkan secara profesional dan terancang', aspek: 'b', label: ' Melaksanakan program yang melibatkan ibu bapa/penjaga' },
+      { std: 2, kod: '2.7.1.Permufakatan strategik diusahkan secara profesional dan terancang', aspek: 'c', label: ' Mendapatkan sumbangan sokongan/khidmat kepakaran' },
+      { std: 2, kod: '2.7.1.Permufakatan strategik diusahkan secara profesional dan terancang', aspek: 'd', label: ' Mewujudkan rangkaian komuniti' },
       // Standard 3: Kurikulum, Kokurikulum & HEM (95 items - shortened for space)
-      { std: 3, kod: '3.1.1.1', aspek: 'a', label: '3.1.1.1(a) Membuat ketetapan' },
-      { std: 3, kod: '3.1.1.1', aspek: 'b', label: '3.1.1.1(b) Mendokumenkan ketetapan' },
-      { std: 3, kod: '3.1.1.1', aspek: 'c', label: '3.1.1.1(c) Menyebarluaskan ketetapan' },
-      { std: 3, kod: '3.1.1.1', aspek: 'd', label: '3.1.1.1(d) Menyemak semula ketetapan' },
-      { std: 3, kod: '3.1.2.1', aspek: 'a', label: '3.1.2.1(a) Memperoleh dokumen kurikulum' },
-      { std: 3, kod: '3.1.2.1', aspek: 'b', label: '3.1.2.1(b) Menyelaras penyediaan RPT dan RPH' },
-      { std: 3, kod: '3.1.2.1', aspek: 'c', label: '3.1.2.1(c) Menyelaras pentaksiran' },
-      { std: 3, kod: '3.1.2.1', aspek: 'd', label: '3.1.2.1(d) Menyelaras tugasan murid' },
-      { std: 3, kod: '3.1.2.1', aspek: 'e', label: '3.1.2.1(e) Menganalisis data dan maklumat pentaksiran' },
-      { std: 3, kod: '3.1.2.1', aspek: 'f', label: '3.1.2.1(f) Mengambil tindakan susulan' },
-      { std: 3, kod: '3.1.2.2', aspek: 'a', label: '3.1.2.2(a) Merancang program pembangunan profesionalisme' },
-      { std: 3, kod: '3.1.2.2', aspek: 'b', label: '3.1.2.2(b) Melaksanakan progam pembangunan profesionalisme' },
-      { std: 3, kod: '3.1.2.2', aspek: 'c', label: '3.1.2.2(c) Menilai keberkesanan program' },
-      { std: 3, kod: '3.1.2.2', aspek: 'd', label: '3.1.2.2(d) Mengambil tindakan susulan' },
-      { std: 3, kod: '3.1.2.3', aspek: 'a', label: '3.1.2.3(a) Merancang program peningkatan ilmu dan kemahiran' },
-      { std: 3, kod: '3.1.2.3', aspek: 'b', label: '3.1.2.3(b) Melaksanakan program peningkatan ilmu' },
-      { std: 3, kod: '3.1.2.3', aspek: 'c', label: '3.1.2.3(c) Menilai keberkesanan programn' },
-      { std: 3, kod: '3.1.2.3', aspek: 'd', label: '3.1.2.3(d) Mengambil tindakan susulan' },
-      { std: 3, kod: '3.1.2.4', aspek: 'a', label: '3.1.2.4(a) Merancang perbelanjaan' },
-      { std: 3, kod: '3.1.2.4', aspek: 'b', label: '3.1.2.4(b) Melaksanakan perbelanjaan' },
-      { std: 3, kod: '3.1.2.4', aspek: 'c', label: '3.1.2.4(c) Memanafaatkan sumber pendidikan' },
-      { std: 3, kod: '3.1.2.4', aspek: 'd', label: '3.1.2.4(d) Merekod penerimaan dan penggunaan sumber' },
-      { std: 3, kod: '3.1.3.1', aspek: 'a', label: '3.1.3.1(a) Menyediakan jadual waktu induk' },
-      { std: 3, kod: '3.1.3.1', aspek: 'b', label: '3.1.3.1(b) Melaksanakan pdp sperti yang dijadualkan' },
-      { std: 3, kod: '3.1.3.1', aspek: 'c', label: '3.1.3.1(c) Menyusun semula jadual waktu' },
-      { std: 3, kod: '3.1.3.1', aspek: 'd', label: '3.1.3.1(d) Menyelaras program sekolah' },
-      { std: 3, kod: '3.1.4.1', aspek: 'a', label: '3.1.4.1(a) Merancang peperiksaan dan pentaksiran' },
-      { std: 3, kod: '3.1.4.1', aspek: 'b', label: '3.1.4.1(b) Menyelaras peperiksaan dan pentaksiran' },
-      { std: 3, kod: '3.1.4.1', aspek: 'c', label: '3.1.4.1(c) Melaksanakan peperiksaan dan pentaksiran' },
-      { std: 3, kod: '3.1.4.1', aspek: 'd', label: '3.1.4.1(d) Menganalisis data peperiksaan dan pentaksiran' },
-      { std: 3, kod: '3.1.4.1', aspek: 'e', label: '3.1.4.1(e) Mengambil tindakan susulan/intervensi' },
-      { std: 3, kod: '3.2.1.1', aspek: 'a', label: '3.2.1.1(a) Membuat ketetapan' },
-      { std: 3, kod: '3.2.1.1', aspek: 'b', label: '3.2.1.1(b) Mendokumenkan ketetapan' },
-      { std: 3, kod: '3.2.1.1', aspek: 'c', label: '3.2.1.1(c) Menyebarluaskan ketetapan' },
-      { std: 3, kod: '3.2.1.1', aspek: 'd', label: '3.2.1.1(d) Menyemak semula ketetapan' },
-      { std: 3, kod: '3.2.2.1', aspek: 'a', label: '3.2.2.1(a) Merancang aktiviti beteraskan ilmu' },
-      { std: 3, kod: '3.2.2.1', aspek: 'b', label: '3.2.2.1(b) Melaksanakan aktiviti yang dirancang' },
-      { std: 3, kod: '3.2.2.1', aspek: 'c', label: '3.2.2.1(c) Merekodkan data dan maklumat' },
-      { std: 3, kod: '3.2.2.1', aspek: 'd', label: '3.2.2.1(d) Menganalisis data dan maklumat' },
-      { std: 3, kod: '3.2.2.1', aspek: 'e', label: '3.2.2.1(e) Mengambil tindakan susulan' },
-      { std: 3, kod: '3.2.3.1', aspek: 'a', label: '3.2.3.1(a) Merancang aktiviti kesukarelawanan' },
-      { std: 3, kod: '3.2.3.1', aspek: 'b', label: '3.2.3.1(b) Melaksanakan aktiviti kesukarelawanan' },
-      { std: 3, kod: '3.2.3.1', aspek: 'c', label: '3.2.3.1(c) Merekodkan data kesukarelawanan' },
-      { std: 3, kod: '3.2.3.1', aspek: 'd', label: '3.2.3.1(d) Menganalisis data kesukarelawanan' },
-      { std: 3, kod: '3.2.3.1', aspek: 'e', label: '3.2.3.1(e) Mengambil tindakan susulan' },
-      { std: 3, kod: '3.2.4.1', aspek: 'a', label: '3.2.4.1(a) Merancang aktiviti kebudayaan' },
-      { std: 3, kod: '3.2.4.1', aspek: 'b', label: '3.2.4.1(b) Melaksanakan aktiviti kebudayaan' },
-      { std: 3, kod: '3.2.4.1', aspek: 'c', label: '3.2.4.1(c) Merekodkan data kebudayaan' },
-      { std: 3, kod: '3.2.4.1', aspek: 'd', label: '3.2.4.1(d) Menganalisis data kebudayaan' },
-      { std: 3, kod: '3.2.4.1', aspek: 'e', label: '3.2.4.1(e) Mengambil tindakan susulan' },
-      { std: 3, kod: '3.2.5.1', aspek: 'a', label: '3.2.5.1(a) Merancang latihan kemahiran' },
-      { std: 3, kod: '3.2.5.1', aspek: 'b', label: '3.2.5.1(b) Melaksanakan latihan kemahiran' },
-      { std: 3, kod: '3.2.5.1', aspek: 'c', label: '3.2.5.1(c) Merancang program pemantapan' },
-      { std: 3, kod: '3.2.5.1', aspek: 'd', label: '3.2.5.1(d) Melaksanakan program pemantapan' },
-      { std: 3, kod: '3.2.6.1', aspek: 'a', label: '3.2.6.1(a) Merancang kejohanan merentas desa' },
-      { std: 3, kod: '3.2.6.1', aspek: 'b', label: '3.2.6.1(b) Merancang sukan tara' },
-      { std: 3, kod: '3.2.6.1', aspek: 'c', label: '3.2.6.1(c) Merancang kejohanan olahraga tahunan' },
-      { std: 3, kod: '3.2.6.1', aspek: 'd', label: '3.2.6.1(d) Merancang pertandingan antara tingkatan' },
-      { std: 3, kod: '3.2.6.1', aspek: 'e', label: '3.2.6.1(e) Melaksanakan kejohanan merentas desa' },
-      { std: 3, kod: '3.2.6.1', aspek: 'f', label: '3.2.6.1(f) Melasanakan sukan tara' },
-      { std: 3, kod: '3.2.6.1', aspek: 'g', label: '3.2.6.1(g) Melaksanakan kejohanan olahraga' },
-      { std: 3, kod: '3.2.6.1', aspek: 'h', label: '3.2.6.1(h) Melaksanakan pertandingan antara' },
-      { std: 3, kod: '3.2.7.1', aspek: 'a', label: '3.2.7.1(a) Merancang pentaksiran' },
-      { std: 3, kod: '3.2.7.1', aspek: 'b', label: '3.2.7.1(b) Melaksanakan pentaksiran' },
-      { std: 3, kod: '3.2.7.1', aspek: 'c', label: '3.2.7.1(c) Menganalisis data pentaksiran' },
-      { std: 3, kod: '3.2.7.1', aspek: 'd', label: '3.2.7.1(d) Mengambil tindakan susulan' },
-      { std: 3, kod: '3.3.1.1', aspek: 'a', label: '3.3.1.1(a) Membuat ketetapan' },
-      { std: 3, kod: '3.3.1.1', aspek: 'b', label: '3.3.1.1(b) Mendokumenkan ketetapan' },
-      { std: 3, kod: '3.3.1.1', aspek: 'c', label: '3.3.1.1(c) Menyebarluaskan ketetapan' },
-      { std: 3, kod: '3.3.1.1', aspek: 'd', label: '3.3.1.1(d) Menyemak semula ketetapan' },
-      { std: 3, kod: '3.3.2.1', aspek: 'a', label: '3.3.2.1(a) Menyebarluaskan peraturan sekolah' },
-      { std: 3, kod: '3.3.2.1', aspek: 'b', label: '3.3.2.1(b) Menguatkuasakan peraturan sekolah' },
-      { std: 3, kod: '3.3.2.1', aspek: 'c', label: '3.3.2.1(c) Menganalisis data displin' },
-      { std: 3, kod: '3.3.2.1', aspek: 'd', label: '3.3.2.1(d) Merancang program pendidikan displin' },
-      { std: 3, kod: '3.3.2.1', aspek: 'e', label: '3.3.2.1(e) Melaksanakan program pendidikan displin' },
-      { std: 3, kod: '3.3.3.1', aspek: 'a', label: '3.3.3.1(a) Menyebarluaskan prosedur keselamatan' },
-      { std: 3, kod: '3.3.3.1', aspek: 'b', label: '3.3.3.1(b) Menguatkuasakan prosedur keselamatan' },
-      { std: 3, kod: '3.3.3.1', aspek: 'c', label: '3.3.3.1(c) Merancang program kesedaran keselamatan' },
-      { std: 3, kod: '3.3.3.1', aspek: 'd', label: '3.3.3.1(d) Melaksanakan program kesedaran keselamatan' },
+      { std: 3, kod: '3.1.1.3.1.1.1.Pelaksanaan kurikulum diurus secara sistematik dan terancang', aspek: 'a', label: ' Membuat ketetapan' },
+      { std: 3, kod: '3.1.1.3.1.1.1.Pelaksanaan kurikulum diurus secara sistematik dan terancang', aspek: 'b', label: ' Mendokumenkan ketetapan' },
+      { std: 3, kod: '3.1.1.3.1.1.1.Pelaksanaan kurikulum diurus secara sistematik dan terancang', aspek: 'c', label: ' Menyebarluaskan ketetapan' },
+      { std: 3, kod: '3.1.1.3.1.1.1.Pelaksanaan kurikulum diurus secara sistematik dan terancang', aspek: 'd', label: ' Menyemak semula ketetapan' },
+      { std: 3, kod: '3.1.2.3.1.2.1.Pelaksanaan mata pelajaran diurus secara profesional dan terancang', aspek: 'a', label: ' Memperoleh dokumen kurikulum' },
+      { std: 3, kod: '3.1.2.3.1.2.1.Pelaksanaan mata pelajaran diurus secara profesional dan terancang', aspek: 'b', label: ' Menyelaras penyediaan RPT dan RPH' },
+      { std: 3, kod: '3.1.2.3.1.2.1.Pelaksanaan mata pelajaran diurus secara profesional dan terancang', aspek: 'c', label: ' Menyelaras pentaksiran' },
+      { std: 3, kod: '3.1.2.3.1.2.1.Pelaksanaan mata pelajaran diurus secara profesional dan terancang', aspek: 'd', label: ' Menyelaras tugasan murid' },
+      { std: 3, kod: '3.1.2.3.1.2.1.Pelaksanaan mata pelajaran diurus secara profesional dan terancang', aspek: 'e', label: ' Menganalisis data dan maklumat pentaksiran' },
+      { std: 3, kod: '3.1.2.3.1.2.1.Pelaksanaan mata pelajaran diurus secara profesional dan terancang', aspek: 'f', label: ' Mengambil tindakan susulan' },
+      { std: 3, kod: '3.1.2.3.1.2.2.Program peningkatan kualiti pengajaran guru diurus secara terancang', aspek: 'a', label: ' Merancang program pembangunan profesionalisme yang berkaitan dengan mata pelajaran' },
+      { std: 3, kod: '3.1.2.3.1.2.2.Program peningkatan kualiti pengajaran guru diurus secara terancang', aspek: 'b', label: ' Melaksanakan progam pembangunan profesionalisme yang berkaitan dengan mata pelajaran' },
+      { std: 3, kod: '3.1.2.3.1.2.2.Program peningkatan kualiti pengajaran guru diurus secara terancang', aspek: 'c', label: ' Menilai keberkesanan program' },
+      { std: 3, kod: '3.1.2.3.1.2.2.Program peningkatan kualiti pengajaran guru diurus secara terancang', aspek: 'd', label: ' Mengambil tindakan susulan' },
+      { std: 3, kod: '3.1.2.3.1.2.3.Program peningkatan pencapaian murid diurus secara profesional dan terancang', aspek: 'a', label: ' Merancang program yang menjurus ke arah peningkatan ilmu dan kemahiran' },
+      { std: 3, kod: '3.1.2.3.1.2.3.Program peningkatan pencapaian murid diurus secara profesional dan terancang', aspek: 'b', label: ' Melaksanakan program yang menjurus ke arah peningkatan ilmu dan kemahiran' },
+      { std: 3, kod: '3.1.2.3.1.2.3.Program peningkatan pencapaian murid diurus secara profesional dan terancang', aspek: 'c', label: ' Menilai keberkesanan programn' },
+      { std: 3, kod: '3.1.2.3.1.2.3.Program peningkatan pencapaian murid diurus secara profesional dan terancang', aspek: 'd', label: ' Mengambil tindakan susulan' },
+      { std: 3, kod: '3.1.2.3.1.2.4.Bantuan geran per kapita mata pelajaran dimanafaatkan secara sistematik dan terancang', aspek: 'a', label: ' Merancang perbelanjaan' },
+      { std: 3, kod: '3.1.2.3.1.2.4.Bantuan geran per kapita mata pelajaran dimanafaatkan secara sistematik dan terancang', aspek: 'b', label: ' Melaksanakan perbelanjaan' },
+      { std: 3, kod: '3.1.2.3.1.2.4.Bantuan geran per kapita mata pelajaran dimanafaatkan secara sistematik dan terancang', aspek: 'c', label: ' Memanafaatkan sumber pendidikan' },
+      { std: 3, kod: '3.1.2.3.1.2.4.Bantuan geran per kapita mata pelajaran dimanafaatkan secara sistematik dan terancang', aspek: 'd', label: ' Merekod penerimaan dan penggunaan sumber' },
+      { std: 3, kod: '3.1.3.3.1.3.1.Masa pelaksanaan pdp diurus secara sistematik dan terancang', aspek: 'a', label: ' Menyediakan jadual waktu induk,jadual waktu kelas,jadual waktu guru,jadual waktu guru ganti dan jadual penggunaan bilik khas' },
+      { std: 3, kod: '3.1.3.3.1.3.1.Masa pelaksanaan pdp diurus secara sistematik dan terancang', aspek: 'b', label: ' Melaksanakan pdp seperti yang dijadualkan' },
+      { std: 3, kod: '3.1.3.3.1.3.1.Masa pelaksanaan pdp diurus secara sistematik dan terancang', aspek: 'c', label: ' Menyusun semula jadual waktu' },
+      { std: 3, kod: '3.1.3.3.1.3.1.Masa pelaksanaan pdp diurus secara sistematik dan terancang', aspek: 'd', label: ' Menyelaras program sekolah' },
+      { std: 3, kod: '3.1.4.3.1.4.1.Peperiksaan dan pentaksiran diurus secara sistematik dan terancang', aspek: 'a', label: ' Merancang peperiksaan dan pentaksiran' },
+      { std: 3, kod: '3.1.4.3.1.4.1.Peperiksaan dan pentaksiran diurus secara sistematik dan terancang', aspek: 'b', label: ' Menyelaras peperiksaan dan pentaksiran' },
+      { std: 3, kod: '3.1.4.3.1.4.1.Peperiksaan dan pentaksiran diurus secara sistematik dan terancang', aspek: 'c', label: ' Melaksanakan peperiksaan dan pentaksiran' },
+      { std: 3, kod: '3.1.4.3.1.4.1.Peperiksaan dan pentaksiran diurus secara sistematik dan terancang', aspek: 'd', label: ' Menganalisis data peperiksaan dan pentaksiran' },
+      { std: 3, kod: '3.1.4.3.1.4.1.Peperiksaan dan pentaksiran diurus secara sistematik dan terancang', aspek: 'e', label: ' Mengambil tindakan susulan/intervensi' },
+      { std: 3, kod: '3.2.1.3.2.1.1.Pelaksanaan kokurikulum diurus secara sistematik dan terancang', aspek: 'a', label: ' Membuat ketetapan' },
+      { std: 3, kod: '3.2.1.3.2.1.1.Pelaksanaan kokurikulum diurus secara sistematik dan terancang', aspek: 'b', label: ' Mendokumenkan ketetapan' },
+      { std: 3, kod: '3.2.1.3.2.1.1.Pelaksanaan kokurikulum diurus secara sistematik dan terancang', aspek: 'c', label: ' Menyebarluaskan ketetapan' },
+      { std: 3, kod: '3.2.1.3.2.1.1.Pelaksanaan kokurikulum diurus secara sistematik dan terancang', aspek: 'd', label: ' Menyemak semula ketetapan' },
+      { std: 3, kod: '3.2.2.3.2.2.1.Kelab/persatuan diurus secara sistematik dan terancang', aspek: 'a', label: ' Merancang aktiviti beteraskan ilmu pengetahuan,kemahiran dan kreativiti/inovasi' },
+      { std: 3, kod: '3.2.2.3.2.2.1.Kelab/persatuan diurus secara sistematik dan terancang', aspek: 'b', label: ' Melaksanakan aktiviti yang dirancang' },
+      { std: 3, kod: '3.2.2.3.2.2.1.Kelab/persatuan diurus secara sistematik dan terancang', aspek: 'c', label: ' Merekodkan data dan maklumat' },
+      { std: 3, kod: '3.2.2.3.2.2.1.Kelab/persatuan diurus secara sistematik dan terancang', aspek: 'd', label: ' Menganalisis data dan maklumat' },
+      { std: 3, kod: '3.2.2.3.2.2.1.Kelab/persatuan diurus secara sistematik dan terancang', aspek: 'e', label: ' Mengambil tindakan susulan' },
+      { std: 3, kod: '3.2.3.3.2.3.1.Badan beruniform diurus secara sistematik dan terancang', aspek: 'a', label: ' Merancang aktiviti beteraskan ilmu pengetahuan,kemahiran dan kreativiti/inovasi' },
+      { std: 3, kod: '3.2.3.3.2.3.1.Badan beruniform diurus secara sistematik dan terancang', aspek: 'b', label: ' Melaksanakan aktiviti yang dirancang' },
+      { std: 3, kod: '3.2.3.3.2.3.1.Badan beruniform diurus secara sistematik dan terancang', aspek: 'c', label: ' Merekod data dan maklumat' },
+      { std: 3, kod: '3.2.3.3.2.3.1.Badan beruniform diurus secara sistematik dan terancang', aspek: 'd', label: ' Menganalisis data dan maklumat' },
+      { std: 3, kod: '3.2.3.3.2.3.1.Badan beruniform diurus secara sistematik dan terancang', aspek: 'e', label: ' Mengambil tindakan susulan' },
+      { std: 3, kod: '3.2.4.3.2.4.1.Sukan/permainan diurus secara sistematik dan terancang', aspek: 'a', label: ' Merancang aktiviti berteraskan ilmu pengetahuan,kemahiran dan kreativiti/inovasi' },
+      { std: 3, kod: '3.2.4.3.2.4.1.Sukan/permainan diurus secara sistematik dan terancang', aspek: 'b', label: ' Melaksanakan aktiviti yang dirancang' },
+      { std: 3, kod: '3.2.4.3.2.4.1.Sukan/permainan diurus secara sistematik dan terancang', aspek: 'c', label: ' Merekodkan data dan maklumat' },
+      { std: 3, kod: '3.2.4.3.2.4.1.Sukan/permainan diurus secara sistematik dan terancang', aspek: 'd', label: ' Menganalisis data dan maklumat' },
+      { std: 3, kod: '3.2.4.3.2.4.1.Sukan/permainan diurus secara sistematik dan terancang', aspek: 'e', label: ' Mengambil tindakan susulan' },
+      { std: 3, kod: '3.2.5.3.2.5.1.Program kecemerlangan kokurikulum diurus secara profesional dan terancang', aspek: 'a', label: ' Merancang latihan peningkatan kemahiran' },
+      { std: 3, kod: '3.2.5.3.2.5.1.Program kecemerlangan kokurikulum diurus secara profesional dan terancang', aspek: 'b', label: ' Melaksanakan latihan peningkatan kemahiran' },
+      { std: 3, kod: '3.2.5.3.2.5.1.Program kecemerlangan kokurikulum diurus secara profesional dan terancang', aspek: 'c', label: ' Merancang program pemantapan' },
+      { std: 3, kod: '3.2.5.3.2.5.1.Program kecemerlangan kokurikulum diurus secara profesional dan terancang', aspek: 'd', label: ' Melaksanakan program pemantapan' },
+      { std: 3, kod: '3.2.6.3.2.6.1.Aktiviti sukan untuk semua diurus secara profesional dan terancang', aspek: 'a', label: ' Merancang kejohanan merentas desa' },
+      { std: 3, kod: '3.2.6.3.2.6.1.Aktiviti sukan untuk semua diurus secara profesional dan terancang', aspek: 'b', label: ' Merancang sukan tara' },
+      { std: 3, kod: '3.2.6.3.2.6.1.Aktiviti sukan untuk semua diurus secara profesional dan terancang', aspek: 'c', label: ' Merancang kejohanan olahraga tahunan' },
+      { std: 3, kod: '3.2.6.3.2.6.1.Aktiviti sukan untuk semua diurus secara profesional dan terancang', aspek: 'd', label: ' Merancang pertandingan antara tingkatan' },
+      { std: 3, kod: '3.2.6.3.2.6.1.Aktiviti sukan untuk semua diurus secara profesional dan terancang', aspek: 'e', label: ' Melaksanakan kejohanan merentas desa' },
+      { std: 3, kod: '3.2.6.3.2.6.1.Aktiviti sukan untuk semua diurus secara profesional dan terancang', aspek: 'f', label: ' Melasanakan sukan tara' },
+      { std: 3, kod: '3.2.6.3.2.6.1.Aktiviti sukan untuk semua diurus secara profesional dan terancang', aspek: 'g', label: ' Melaksanakan kejohanan olahraga' },
+      { std: 3, kod: '3.2.6.3.2.6.1.Aktiviti sukan untuk semua diurus secara profesional dan terancang', aspek: 'h', label: ' Melaksanakan pertandingan antara' },
+      { std: 3, kod: '3.2.7.3.2.7.1.Pentaksiran kokurikulum dilaksanakan secara sistematik dan terancang', aspek: 'a', label: ' Merancang pentaksiran' },
+      { std: 3, kod: '3.2.7.3.2.7.1.Pentaksiran kokurikulum dilaksanakan secara sistematik dan terancang', aspek: 'b', label: ' Melaksanakan pentaksiran' },
+      { std: 3, kod: '3.2.7.3.2.7.1.Pentaksiran kokurikulum dilaksanakan secara sistematik dan terancang', aspek: 'c', label: ' Menganalisis data dan maklumat pentaksiran' },
+      { std: 3, kod: '3.2.7.3.2.7.1.Pentaksiran kokurikulum dilaksanakan secara sistematik dan terancang', aspek: 'd', label: ' Mengambil tindakan susulan intervensi' },
+      { std: 3, kod: '3.3.1.3.3.1.1.Perlaksanaan hal ehwal murid diurus secara sistematik dan terancang', aspek: 'a', label: ' Membuat ketetapan' },
+      { std: 3, kod: '3.3.1.3.3.1.1.Perlaksanaan hal ehwal murid diurus secara sistematik dan terancang', aspek: 'b', label: ' Mendokumenkan ketetapan' },
+      { std: 3, kod: '3.3.1.3.3.1.1.Perlaksanaan hal ehwal murid diurus secara sistematik dan terancang', aspek: 'c', label: ' Menyebarluaskan ketetapan' },
+      { std: 3, kod: '3.3.1.3.3.1.1.Perlaksanaan hal ehwal murid diurus secara sistematik dan terancang', aspek: 'd', label: ' Menyemak semula ketetapan' },
+      { std: 3, kod: '3.3.2.3.3.2.1.Displin murid diurus secara sistematik dan terancang', aspek: 'a', label: ' Menyebarluaskan peraturan sekolah' },
+      { std: 3, kod: '3.3.2.3.3.2.1.Displin murid diurus secara sistematik dan terancang', aspek: 'b', label: ' Menguatkuasakan peraturan sekolah' },
+      { std: 3, kod: '3.3.2.3.3.2.1.Displin murid diurus secara sistematik dan terancang', aspek: 'c', label: ' Menganalisis data displin' },
+      { std: 3, kod: '3.3.2.3.3.2.1.Displin murid diurus secara sistematik dan terancang', aspek: 'd', label: ' Merancang program pendidikan displin' },
+      { std: 3, kod: '3.3.2.3.3.2.1.Displin murid diurus secara sistematik dan terancang', aspek: 'e', label: ' Melaksanakan program pendidikan displin' },
+      { std: 3, kod: '3.3.3.3.3.3.1.Keselamatan murid diurus secara sistematik dan terancang', aspek: 'a', label: ' Menyebarluaskan peraturan dan prosedur operasi standard keselamatan' },
+      { std: 3, kod: '3.3.3.3.3.3.1.Keselamatan murid diurus secara sistematik dan terancang', aspek: 'b', label: ' Menguatkuasakan peraturan dan prosedur operasi standard keselamatan' },
+      { std: 3, kod: '3.3.3.3.3.3.1.Keselamatan murid diurus secara sistematik dan terancang', aspek: 'c', label: ' Merancang program pencegahan dan kesedaran keselamatan' },
+      { std: 3, kod: '3.3.3.3.3.3.1.Keselamatan murid diurus secara sistematik dan terancang', aspek: 'd', label: ' Melaksanakanprogram pencegahan dan kesedaran keselamatan' },
+      { std: 3, kod: '3.3.4.3.3.4.1.Program dan perkhidmatan kesihatan murid diurus secara sistematik dan terancang', aspek: 'a', label: ' Menyelaras pemeriksaan kesihatan/rawatan/imunisasi' },
+      { std: 3, kod: '3.3.4.3.3.4.1.Program dan perkhidmatan kesihatan murid diurus secara sistematik dan terancang', aspek: 'b', label: ' Merancang program pencegahan dan kesedaran kesihatan' },
+      { std: 3, kod: '3.3.4.3.3.4.1.Program dan perkhidmatan kesihatan murid diurus secara sistematik dan terancang', aspek: 'c', label: ' Melaksanakan program pencegahan dan kesedaran kesihatan' },
+      { std: 3, kod: '3.3.4.3.3.4.1.Program dan perkhidmatan kesihatan murid diurus secara sistematik dan terancang', aspek: 'd', label: ' Mewujudkan pesekitaran yang bermaklumat tentang kesihatan' },
+      { std: 3, kod: '3.3.5.3.3.5.1.Bantuan pelajaran murid diurus secara sistematik dan terancang', aspek: 'a', label: ' Mengenal pasti jenis bantuan' },
+      { std: 3, kod: '3.3.5.3.3.5.1.Bantuan pelajaran murid diurus secara sistematik dan terancang', aspek: 'b', label: ' Mengenal pasti murid yang layak' },
+      { std: 3, kod: '3.3.5.3.3.5.1.Bantuan pelajaran murid diurus secara sistematik dan terancang', aspek: 'c', label: ' Merekodkan maklumat murid yang menerima bantuan' },
+      { std: 3, kod: '3.3.5.3.3.5.1.Bantuan pelajaran murid diurus secara sistematik dan terancang', aspek: 'd', label: ' Memantau restasi/kemajuan murid yang menerima bantuan' },
+      { std: 3, kod: '3.3.6.3.3.6.1.Perkhidmatan bimbingan dan kaunseling diurus secara profesional dan terancang', aspek: 'a', label: ' Merancang sesi bimbingan/kaunseling' },
+      { std: 3, kod: '3.3.6.3.3.6.1.Perkhidmatan bimbingan dan kaunseling diurus secara profesional dan terancang', aspek: 'b', label: ' Melaksanakan sesi bimbingan/kaunseling' },
+      { std: 3, kod: '3.3.6.3.3.6.1.Perkhidmatan bimbingan dan kaunseling diurus secara profesional dan terancang', aspek: 'c', label: ' Merancang program bimbingan dan kaunseling' },
+      { std: 3, kod: '3.3.6.3.3.6.1.Perkhidmatan bimbingan dan kaunseling diurus secara profesional dan terancang', aspek: 'd', label: ' Melaksanakan program bimbingan dan kaunseling' },
+      { std: 3, kod: '3.3.7.3.3.7.1.Pentaksiran psikometrik diurus secara sistematik dan terancang', aspek: 'a', label: ' Merancang pentaksiran' },
+      { std: 3, kod: '3.3.7.3.3.7.1.Pentaksiran psikometrik diurus secara sistematik dan terancang', aspek: 'b', label: ' Melaksanakan pentaksiran' },
+      { std: 3, kod: '3.3.7.3.3.7.1.Pentaksiran psikometrik diurus secara sistematik dan terancang', aspek: 'c', label: ' Menganalisis data dan maklumat pentaksiran' },
+      { std: 3, kod: '3.3.7.3.3.7.1.Pentaksiran psikometrik diurus secara sistematik dan terancang', aspek: 'd', label: ' Mengambil tindakan susulan/intervensi/konsultasi' },
+
+
+
+
+
+
+
       // Standard 4: Pembelajaran & Pemudahcaraan (38 items)
-      { std: 4, kod: '4.1.1', aspek: 'a', label: '4.1.1(a) Menyediakan RPH dengan objektif yang boleh diukur' },
-      { std: 4, kod: '4.1.1', aspek: 'b', label: '4.1.1(b) Menentukan kaedah pentaksiran' },
-      { std: 4, kod: '4.1.1', aspek: 'c', label: '4.1.1(c) Menyediakan ABM/BBM/BBB/TMK' },
-      { std: 4, kod: '4.2.1', aspek: 'a', label: '4.2.1(a) Mengelola isi pelajaran/skop pembelajaran' },
-      { std: 4, kod: '4.2.1', aspek: 'b', label: '4.2.1(b) Mengelola masa pdpc selaras dengan aktiviti' },
-      { std: 4, kod: '4.2.1', aspek: 'c', label: '4.2.1(c) Memberi peluang kepada penyertaan aktif murid' },
-      { std: 4, kod: '4.2.2', aspek: 'a', label: '4.2.2(a) Mengawasi komunikasi murid dalam pdpc' },
-      { std: 4, kod: '4.2.2', aspek: 'b', label: '4.2.2(b) Mengawasi perlakuan murid dalam pdpc' },
-      { std: 4, kod: '4.2.2', aspek: 'c', label: '4.2.2(c) Menyusun atur kedudukan murid' },
-      { std: 4, kod: '4.2.2', aspek: 'd', label: '4.2.2(d) Melaksanakan aktiviti pembelajaran yang menyeronokkan' },
-      { std: 4, kod: '4.3.1', aspek: 'a', label: '4.3.1(a) Memberi tunjuk ajar menguasai isi pelajaran' },
-      { std: 4, kod: '4.3.1', aspek: 'b', label: '4.3.1(b) Memberi tunjuk cara menguasai kemahiran' },
-      { std: 4, kod: '4.3.1', aspek: 'c', label: '4.3.1(c) Memandu murid membuat keputusan' },
-      { std: 4, kod: '4.3.1', aspek: 'd', label: '4.3.1(d) Memandu murid menggunakan sumber pendidikan' },
-      { std: 4, kod: '4.3.1', aspek: 'e', label: '4.3.1(e) Mengaitkan isi pelajaran dengan topik lain' },
-      { std: 4, kod: '4.4.1', aspek: 'a', label: '4.4.1(a) Meransang murid berkomunikasi' },
-      { std: 4, kod: '4.4.1', aspek: 'b', label: '4.4.1(b) Meransang murid berkolaboratif' },
-      { std: 4, kod: '4.4.1', aspek: 'c', label: '4.4.1(c) Mengemukakan soalan pemikiran kritis' },
-      { std: 4, kod: '4.4.1', aspek: 'd', label: '4.4.1(d) Mengajukan soalan membuat keputusan' },
-      { std: 4, kod: '4.4.1', aspek: 'e', label: '4.4.1(e) Mewujudkan peluang untuk murid memimpin' },
-      { std: 4, kod: '4.4.1', aspek: 'f', label: '4.4.1(f) Mengalakkan murid mengemukakan soalan' },
-      { std: 4, kod: '4.4.1', aspek: 'g', label: '4.4.1(g) Mengalakkan murid memperoleh pengetahuan' },
-      { std: 4, kod: '4.4.2', aspek: 'a', label: '4.4.2(a) Memberi pujian terhadap pelakuan positif' },
-      { std: 4, kod: '4.4.2', aspek: 'b', label: '4.4.2(b) Memberi penghargaan terhadap hasil kerja' },
-      { std: 4, kod: '4.4.2', aspek: 'c', label: '4.4.2(c) Memberi keyakinan mengemukakan soalan' },
-      { std: 4, kod: '4.4.2', aspek: 'd', label: '4.4.2(d) Prihatin terhadap keperluan murid' },
-      { std: 4, kod: '4.5.1', aspek: 'a', label: '4.5.1(a) Menggunakan pelbagai kaedah pentaksiran' },
-      { std: 4, kod: '4.5.1', aspek: 'b', label: '4.5.1(b) Menjalankan aktiviti pemulihan/pengayaan' },
-      { std: 4, kod: '4.5.1', aspek: 'c', label: '4.5.1(c) Memberi latihan/tugasan berkaitan pelajaran' },
-      { std: 4, kod: '4.5.1', aspek: 'd', label: '4.5.1(d) Membuat refleksi pdpc' },
-      { std: 4, kod: '4.5.1', aspek: 'e', label: '4.5.1(e) Menyemak/menilai hasil kerja/latihan' },
-      { std: 4, kod: '4.6.1', aspek: 'a', label: '4.6.1(a) Memberi respons berkaitan isi pelajaran' },
-      { std: 4, kod: '4.6.1', aspek: 'b', label: '4.6.1(b) Berkomunikasi dalam melaksanakan aktiviti' },
-      { std: 4, kod: '4.6.1', aspek: 'c', label: '4.6.1(c) Melaksanakan aktiviti pembelajaran kolaboratif' },
-      { std: 4, kod: '4.6.1', aspek: 'd', label: '4.6.1(d) Memberi respons pemikiran kritis/kreatif' },
-      { std: 4, kod: '4.6.1', aspek: 'e', label: '4.6.1(e) Mengemukakan soalan berkaitan isi pelajaran' },
-      { std: 4, kod: '4.6.1', aspek: 'f', label: '4.6.1(f) Mengaitkan isi dengan kehidupan murid' },
-      { std: 4, kod: '4.6.1', aspek: 'g', label: '4.6.1(g) Membuat keputusan menyelesaikan masalah' }
+      { std: 4, kod: '4.1.1.Guru merancang pelaksanaan pdpc secara profesional  dan sistematik', aspek: 'a', label: ' Menyediakan RPH yang mengandungi objektif yang boleh diukur dan aktiviti pembelajaran yang sesuai' },
+      { std: 4, kod: '4.1.1.Guru merancang pelaksanaan pdpc secara profesional  dan sistematik', aspek: 'b', label: ' Menentukan kaedah pentaksiran' },
+      { std: 4, kod: '4.1.1.Guru merancang pelaksanaan pdpc secara profesional  dan sistematik', aspek: 'c', label: ' Menyediakan ABM/BBM/BBB/TMK' },
+      { std: 4, kod: '4.2.1.Guru mengawal peroses pembelajaran secara profesional dan terancang', aspek: 'a', label: ' Mengelola isi pelajaran/skop pembelajaran yang dirancang' },
+      { std: 4, kod: '4.2.1.Guru mengawal peroses pembelajaran secara profesional dan terancang', aspek: 'b', label: ' Mengelola masa pdpc selaras dengan aktiviti pembelajaran' },
+      { std: 4, kod: '4.2.1.Guru mengawal peroses pembelajaran secara profesional dan terancang', aspek: 'c', label: ' Memberi peluang kepada penyertaan aktif murid' },
+      { std: 4, kod: '4.2.2.Guru mengawal suasana pembelajaran secara profesional dan terancang', aspek: 'a', label: ' Mengawasi komunikasi murid dalam pdpc' },
+      { std: 4, kod: '4.2.2.Guru mengawal suasana pembelajaran secara profesional dan terancang', aspek: 'b', label: ' Mengawasi perlakuan murid dalam pdpc' },
+      { std: 4, kod: '4.2.2.Guru mengawal suasana pembelajaran secara profesional dan terancang', aspek: 'c', label: ' Menyusun atur kedudukan murid' },
+      { std: 4, kod: '4.2.2.Guru mengawal suasana pembelajaran secara profesional dan terancang', aspek: 'd', label: ' Melaksanakan aktiviti pembelajaran yang menyeronokkan' },
+      { std: 4, kod: '4.3.1.Guru membimbing murid secara profesional dan terancang', aspek: 'a', label: ' Memberi tunjuk ajar menguasai isi pelajaran' },
+      { std: 4, kod: '4.3.1.Guru membimbing murid secara profesional dan terancang', aspek: 'b', label: ' Memberi tunjuk cara menguasai kemahiran' },
+      { std: 4, kod: '4.3.1.Guru membimbing murid secara profesional dan terancang', aspek: 'c', label: ' Memandu murid membuat keputusan' },
+      { std: 4, kod: '4.3.1.Guru membimbing murid secara profesional dan terancang', aspek: 'd', label: ' Memandu murid menggunakan sumber pendidikan' },
+      { std: 4, kod: '4.3.1.Guru membimbing murid secara profesional dan terancang', aspek: 'e', label: ' Mengaitkan isi pelajaran dengan topik lain' },
+      { std: 4, kod: '4.4.1.Guru mendorong minda murid dalam melaksanakan aktiviti pembelajaran secara profesional dan terancang', aspek: 'a', label: ' Meransang murid berkomunikasi' },
+      { std: 4, kod: '4.4.1.Guru mendorong minda murid dalam melaksanakan aktiviti pembelajaran secara profesional dan terancang', aspek: 'b', label: ' Meransang murid berkolaboratif' },
+      { std: 4, kod: '4.4.1.Guru mendorong minda murid dalam melaksanakan aktiviti pembelajaran secara profesional dan terancang', aspek: 'c', label: ' Mengemukakan soalan pemikiran kritis' },
+      { std: 4, kod: '4.4.1.Guru mendorong minda murid dalam melaksanakan aktiviti pembelajaran secara profesional dan terancang', aspek: 'd', label: ' Mengajukan soalan membuat keputusan' },
+      { std: 4, kod: '4.4.1.Guru mendorong minda murid dalam melaksanakan aktiviti pembelajaran secara profesional dan terancang', aspek: 'e', label: ' Mewujudkan peluang untuk murid memimpin' },
+      { std: 4, kod: '4.4.1.Guru mendorong minda murid dalam melaksanakan aktiviti pembelajaran secara profesional dan terancang', aspek: 'f', label: ' Mengalakkan murid mengemukakan soalan' },
+      { std: 4, kod: '4.4.1.Guru mendorong minda murid dalam melaksanakan aktiviti pembelajaran secara profesional dan terancang', aspek: 'g', label: ' Mengalakkan murid memperoleh pengetahuan' },
+      { std: 4, kod: '4.4.2.Guru mendorong emosi murid dalam melaksanakan aktiviti pembelajaran secara profesional dan terancang', aspek: 'a', label: ' Memberi pujian terhadap pelakuan positif' },
+      { std: 4, kod: '4.4.2.Guru mendorong emosi murid dalam melaksanakan aktiviti pembelajaran secara profesional dan terancang', aspek: 'b', label: ' Memberi penghargaan terhadap hasil kerja' },
+      { std: 4, kod: '4.4.2.Guru mendorong emosi murid dalam melaksanakan aktiviti pembelajaran secara profesional dan terancang', aspek: 'c', label: ' Memberi keyakinan mengemukakan soalan' },
+      { std: 4, kod: '4.4.2.Guru mendorong emosi murid dalam melaksanakan aktiviti pembelajaran secara profesional dan terancang', aspek: 'd', label: ' Prihatin terhadap keperluan murid' },
+      { std: 4, kod: '4.5.1.Guru melaksanakan penilaian secara sistematik dan terancang', aspek: 'a', label: ' Menggunakan pelbagai kaedah pentaksiran' },
+      { std: 4, kod: '4.5.1.Guru melaksanakan penilaian secara sistematik dan terancang', aspek: 'b', label: ' Menjalankan aktiviti pemulihan/pengayaan' },
+      { std: 4, kod: '4.5.1.Guru melaksanakan penilaian secara sistematik dan terancang', aspek: 'c', label: ' Memberi latihan/tugasan berkaitan pelajaran' },
+      { std: 4, kod: '4.5.1.Guru melaksanakan penilaian secara sistematik dan terancang', aspek: 'd', label: ' Membuat refleksi pdpc' },
+      { std: 4, kod: '4.5.1.Guru melaksanakan penilaian secara sistematik dan terancang', aspek: 'e', label: ' Menyemak/menilai hasil kerja/latihan' },
+      { std: 4, kod: '4.6.1.Murid melibatkan diri dalam proses pembelajaran secara berkesan', aspek: 'a', label: ' Memberi respons berkaitan isi pelajaran' },
+      { std: 4, kod: '4.6.1.Murid melibatkan diri dalam proses pembelajaran secara berkesan', aspek: 'b', label: ' Berkomunikasi dalam melaksanakan aktiviti' },
+      { std: 4, kod: '4.6.1.Murid melibatkan diri dalam proses pembelajaran secara berkesan', aspek: 'c', label: ' Melaksanakan aktiviti pembelajaran kolaboratif' },
+      { std: 4, kod: '4.6.1.Murid melibatkan diri dalam proses pembelajaran secara berkesan', aspek: 'd', label: ' Memberi respons pemikiran kritis/kreatif' },
+      { std: 4, kod: '4.6.1.Murid melibatkan diri dalam proses pembelajaran secara berkesan', aspek: 'e', label: ' Mengemukakan soalan berkaitan isi pelajaran' },
+      { std: 4, kod: '4.6.1.Murid melibatkan diri dalam proses pembelajaran secara berkesan', aspek: 'f', label: ' Mengaitkan isi dengan kehidupan murid' },
+      { std: 4, kod: '4.6.1.Murid melibatkan diri dalam proses pembelajaran secara berkesan', aspek: 'g', label: ' Membuat keputusan menyelesaikan masalah' }
     ];
 // ===== LAZY RENDER ENGINE =====
 const scoreStore = {};
@@ -564,44 +587,74 @@ function renderStandard(stdNumber){
   const container = document.getElementById('standardContainer');
   const items = skpmItems.filter(i => i.std === stdNumber);
 
-  // ✅ highlight tab
+  // highlight tab
   document.querySelectorAll('.tab-btn').forEach((b,i)=>{
     b.classList.toggle('active', i === stdNumber-1);
   });
 
+  // 🔥 KUMPUL ikut KOD ITEM (contoh 1.1.1)
+  const grouped = {};
+  items.forEach(item=>{
+    if(!grouped[item.kod]) grouped[item.kod] = [];
+    grouped[item.kod].push(item);
+  });
+
   let html = '';
 
-  items.forEach(item => {
-    const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g,'_');
+  Object.keys(grouped).forEach(fullKod=>{
+  const aspekItems = grouped[fullKod];
 
-    if (scoreStore[fieldId] === undefined) {
-      scoreStore[fieldId] = 2;
-    }
-    const val = scoreStore[fieldId];
+  // 🔥 Pecahkan kod & tajuk automatik
+  const parts = fullKod.split('.');
+  const kodOnly = parts.slice(0,3).join('.');
+  const tajuk = fullKod.substring(kodOnly.length + 1);
 
-    html += `
-      <div class="mb-3 p-3 border rounded bg-white shadow-sm">
-        <div class="font-semibold">${item.kod} (${item.aspek})</div>
-        <div class="text-sm mb-2">${item.label}</div>
-        <div class="flex gap-2">
-          ${[1,2,3,4].map(n => `
-            <button
-              type="button"
-              onclick="setScore('${fieldId}', ${n})"
-              id="btn-${fieldId}-${n}"
-              class="score-btn px-3 py-1 rounded text-sm font-bold border
-              ${getScoreColor(val == n ? n : 0)}">
-              ${n}
-            </button>
-          `).join('')}
-        </div>
+  html += `
+    <div class="border-2 border-gray-200 rounded-lg mb-6 bg-gray-50">
+      <div class="bg-gray-100 px-4 py-3">
+        <div class="font-bold text-gray-800">Kod Item: ${kodOnly}</div>
+        <div class="text-sm text-gray-700 mt-1">${tajuk}</div>
       </div>
+
+        <div class="px-4 py-3 space-y-3">
     `;
+
+    aspekItems.forEach(item=>{
+      const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g,'_');
+
+      if(scoreStore[fieldId] === undefined){
+        scoreStore[fieldId] = 2;
+      }
+
+      const val = scoreStore[fieldId];
+
+      html += `
+        <div class="flex items-center justify-between gap-4 border-b pb-2">
+          <div class="flex-1 text-sm font-medium text-gray-800">
+            (${item.aspek}) ${item.label}
+
+          </div>
+          <div class="flex gap-2">
+            ${[0,1,2,3,4].map(n=>`
+
+              <button
+                type="button"
+                onclick="setScore('${fieldId}', ${n})"
+                id="btn-${fieldId}-${n}"
+                class="px-3 py-1 rounded font-bold border
+                ${getScoreColor(val==n?n:1)}">
+                ${n}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    });
+
+    html += `</div></div>`;
   });
 
   container.innerHTML = html;
-
-  // ✅ scroll ke atas setiap kali tukar standard
   container.scrollTop = 0;
 }
 
@@ -609,6 +662,8 @@ function renderStandard(stdNumber){
 // 🎨 WARNA BUTANG
 function getScoreColor(score){
   switch(score){
+    case -1: return 'bg-white text-gray-700 border-gray-300'; // tak pilih
+    case 0: return 'bg-gray-300 text-gray-800 border-gray-400'; // skor 0 dipilih
     case 1: return 'bg-red-500 text-white border-red-600';
     case 2: return 'bg-yellow-400 text-white border-yellow-500';
     case 3: return 'bg-green-400 text-white border-green-500';
@@ -617,21 +672,21 @@ function getScoreColor(score){
   }
 }
 
+
 // 🎯 SET SKOR
 function setScore(fieldId, score){
   scoreStore[fieldId] = score;
 
-  [1,2,3,4].forEach(n => {
+  [0,1,2,3,4].forEach(n => {
     const btn = document.getElementById(`btn-${fieldId}-${n}`);
     if(btn){
-      btn.className = 'score-btn px-3 py-1 rounded text-sm font-bold border ' +
-        getScoreColor(n === score ? n : 0);
+      btn.className = 'px-3 py-1 rounded font-bold border ' +
+        getScoreColor(n === score ? n : -1);
     }
   });
 
   updateOverallScore();
 }
-
 
         let allRecords = [];
     let currentEditId = null;
@@ -655,7 +710,8 @@ function calculateSKPMScores() {
 
   skpmItems.forEach(item => {
     const fieldId = `item_${item.std}_${item.kod}_${item.aspek}`.replace(/\./g, '_');
-    const score = scoreStore[fieldId] !== undefined ? parseInt(scoreStore[fieldId]) : 2;
+    const score = parseInt(scoreStore[fieldId] ?? 0);
+
 
     const kodKey = `${item.std}_${item.kod}`;
     if (!kodAverages[kodKey]) kodAverages[kodKey] = [];
